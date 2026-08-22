@@ -1,473 +1,1067 @@
 # ZEVQORA
 
-**AI Agent Control Plane.** Observe. Evaluate. Govern.
+**AI Agent Control Plane.**
 
-> Control what your agents can do.
+> **Control what your agents can do.**
 
-ZEVQORA is a control plane for teams running LLM agents in production. It gives
-you full execution traces for every run, automated quality evaluation, granular
-tool permissions, and a human-in-the-loop approval gate in front of destructive
-actions.
+Observe agent execution. Evaluate quality. Control tool permissions. Require human approval for sensitive actions.
+
+**[Live Demo](https://allahverdi-dev.github.io/zevqora/)** · **[GitHub Repository](https://github.com/allahverdi-dev/zevqora)**
+
+![ZEVQORA Landing](docs/screenshots/landing.png)
 
 ---
 
-## ⚠️ What this release actually is
+## About ZEVQORA
 
-**This is a frontend-only release. ZEVQORA does not execute real AI agents.**
+ZEVQORA is a frontend demonstration of an **AI Agent Control Plane** designed for engineering teams building and operating autonomous or tool-using AI systems.
 
-There is no backend, no database, and no model provider integration. The
-application simulates agent execution against a fixed, deterministic dataset in
-order to demonstrate the intended product experience end to end.
+It brings observability, evaluation, governance, human approval, incident response, experimentation, and fleet-wide telemetry into one unified developer interface.
+
+The product is built around a simple question:
+
+> **What is the agent doing, why is it doing it, and should it be allowed to continue?**
+
+ZEVQORA explores what a production-oriented control layer for AI agents could look and feel like.
+
+---
+
+## Important: What This Release Actually Is
+
+**ZEVQORA is currently a frontend-only product demonstration. It does not execute real AI agents.**
+
+There is currently:
+
+- no production backend
+- no database
+- no real authentication
+- no model-provider integration
+- no real infrastructure telemetry
+- no production policy enforcement
+- no live API credentials
+
+The application uses a deterministic mock-data and simulation layer to demonstrate the intended product experience end to end.
 
 Specifically:
 
-- Every run, trace, policy and evaluation you see is **seeded mock data**.
-- The Simulator runs a **scripted, deterministic engine** in the browser — it
-  does not call OpenAI, Anthropic, Google or any other provider.
-- Policy edits and approval decisions change **in-session frontend state only**.
-  They are not persisted and are **not enforced against any live runtime**.
-- The workspace (*Acme Cloud*), the account (*Lead Architect*), and every agent,
-  incident and customer record are **fictional**.
+- Agent runs, traces, evaluations, incidents, approvals, and analytics are simulated.
+- The Simulator uses a scripted browser-side execution engine.
+- Approval decisions modify frontend session state only.
+- Incident mitigation actions are simulated.
+- API keys shown in Settings are fictional demo credentials.
+- The workspace **Acme Cloud**, account identities, transactions, customers, and incidents are fictional.
 
-The architecture is deliberately built so a real backend can be added later
-without rewriting the UI — see [Backend-ready boundary](#backend-ready-boundary).
+The architecture is intentionally structured so that mock repositories can later be replaced by real API-backed repositories without rewriting the UI.
 
 ---
 
-## Screenshots
+# Product Preview
 
-The application implements all thirteen approved screens across two design
-exports. To capture them, run `npm run dev` and visit:
+## Overview Dashboard
 
-| Screen | Route |
-| --- | --- |
-| Landing | `/` |
-| Dashboard / Overview | `/dashboard` |
-| Agent Fleet | `/agents` |
-| Runs Explorer | `/runs` |
-| Trace Inspection | `/runs/rn_8b9f4e2d_c1` |
-| Simulator | `/simulator` |
-| Evaluations | `/evaluations` |
-| Experiments | `/experiments` |
-| Approval Queue | `/approvals` |
-| Policies & Guardrails | `/policies` |
-| Incidents Command Center | `/incidents` |
-| Fleet Analytics | `/analytics` |
-| Settings | `/settings` |
+Fleet-wide visibility into agent executions, latency, model cost, approvals, incidents, and recent runs.
 
-No primary sidebar destination is a placeholder — every entry in the approved
-navigation routes to a fully implemented, functional screen.
-
-The application was built from an approved Google Stitch design export (two
-archives covering all thirteen screens). Those source archives and the
-extracted reference screenshots/HTML are development-time material only —
-kept locally for visual comparison during the build, not published in this
-repository.
+![ZEVQORA Dashboard](docs/screenshots/dashboard.png)
 
 ---
 
-## Capabilities
+## Human Approval Queue
 
-**Observability**
-- Runs Explorer over a 1,248-run corpus with search, environment/status/agent/
-  model/period filters, sortable columns and pagination. Filter state lives in
-  the URL, so a filtered view is linkable and the back button works.
-- Full execution traces: an interactive event hierarchy from run start through
-  model invocations, tool calls, policy interventions, human approval and
-  completion, with a typed metadata inspector.
+Review high-risk actions before agents are allowed to execute them.
 
-**Governance**
-- Policies with typed effects (`allow`, `deny`, `require_approval`,
-  `rate_limit`, `redact`), severity, attached agents and an editable rule
-  definition.
-- A human approval gate that genuinely halts execution and branches on the
-  decision.
+The approval workflow supports contextual inspection, policy information, risk scoring, execution evidence, approval, rejection, and shared session state.
 
-**Quality**
-- Evaluation suites with per-criterion scoring, regression thresholds, model
-  comparison curves and run history.
-- Experiments: A/B comparisons of agent configurations, prompts and models,
-  with data-driven metric-comparison and traffic-allocation charts, a
-  functional experiment directory, and a demo experiment-creation flow.
-
-**Simulation**
-- A working agent sandbox: pick an agent, send a message, watch the trace build
-  progressively, hit the policy gate, approve or reject, and see the run
-  continue or terminate with live token/cost/latency telemetry.
-
-**Human-in-the-loop control**
-- A dedicated Approval Queue with urgency filtering, a context/risk inspector,
-  an execution summary, and a genuinely stateful approve/reject flow that
-  updates the dashboard's pending count and a recent-decision history in the
-  same session.
-
-**Incident response**
-- An Incidents Command Center with severity filtering, a structured timeline
-  (including raw tool-error payloads), and simulated Pause Agent / Rollback
-  mitigations gated behind a confirmation dialog that says plainly that no
-  live agent is affected. Timelines export as real local JSON files.
-
-**Fleet-wide telemetry**
-- Analytics with 24H/7D/30D period switching that changes every figure on the
-  screen, a latency-distribution matrix across pipeline stages, model-usage
-  breakdown, and functional CSV/JSON export of the active snapshot.
-
-**Platform configuration**
-- Settings for organization identity, environment switching (which updates the
-  sidebar's live environment indicator), execution rate limits, and API key
-  management backed by fictional, masked demo credentials only.
+![ZEVQORA Approval Queue](docs/screenshots/approvals.png)
 
 ---
 
-## Technology
+## Incidents Command Center
 
-| Concern | Choice |
-| --- | --- |
-| Framework | React 19 |
-| Language | TypeScript (strict) |
-| Build | Vite 7 |
-| Routing | React Router 7 |
-| Styling | Modern CSS — custom properties + CSS Modules |
-| Icons | Lucide React |
-| Charts | Hand-rolled SVG components |
-| Testing | Vitest + React Testing Library |
+Investigate simulated production failures, policy violations, latency spikes, crash loops, and other agent-runtime incidents.
 
-**No CSS framework, no component library, no charting library.** The design
-system is a token layer in plain CSS. Charts are ~80-line SVG components — a
-charting dependency would have cost more bundle weight than it saved while
-giving less control over the visual language.
-
-### Design tokens
-
-`DESIGN.md` from the approved export is converted into CSS custom properties in
-[`src/styles/tokens.css`](./src/styles/tokens.css):
-
-- Olive/charcoal tonal surface ramp (`#0c0f06` → `#333629`), depth via **tonal
-  stepping and 1px trace outlines**, not shadows.
-- Signal lime (`#bff440`) reserved strictly for active states, primary actions
-  and "agent-alive" indicators — never for large surfaces.
-- 4px spacing baseline; restrained 2–12px radii.
-- **Manrope** for narrative UI, **IBM Plex Mono** for all machine-generated
-  data: run IDs, model IDs, timestamps, costs, token counts, durations, tool
-  names, policy expressions.
-
-> **Note on `DESIGN.md`:** its frontmatter token block and the prose
-> "Elevation/Shapes" section specify *different* palettes. The frontmatter
-> values are the ones wired into the Stitch HTML and visible in the approved
-> renders, so those are implemented; the prose section is treated as superseded
-> narrative intent.
+![ZEVQORA Incidents Command Center](docs/screenshots/incidents.png)
 
 ---
 
-## Architecture
+## Execution Trace
 
+Inspect an agent run step by step across model invocations, tool calls, tool results, policy interventions, and high-risk actions.
+
+![ZEVQORA Execution Trace](docs/screenshots/trace.png)
+
+---
+
+# Core Capabilities
+
+## Agent Fleet
+
+Manage and inspect a fleet of autonomous agents.
+
+Each agent includes information such as:
+
+- runtime status
+- canonical model
+- attached tools
+- policy coverage
+- operational health
+- deployment metadata
+
+Example agents include:
+
+- SupportBot Alpha
+- Billing Resolver
+- QA Automator
+- Security Triage Agent
+- Onboarding Agent
+- Research Agent
+
+---
+
+## Runs Explorer
+
+Explore a deterministic corpus of agent executions with:
+
+- search
+- environment filtering
+- status filtering
+- agent filtering
+- model filtering
+- time-range filtering
+- sortable data
+- pagination
+- URL-backed filter state
+
+Each run exposes:
+
+- run ID
+- agent
+- model
+- status
+- duration
+- token usage
+- estimated cost
+- timestamp
+
+Selecting a run opens its full execution trace.
+
+---
+
+## Execution Traces
+
+Trace Inspection reconstructs the visible application-level execution path of a run.
+
+A trace may contain:
+
+```text
+Run Started
+↓
+Model Invocation
+↓
+Tool Call
+↓
+Tool Result
+↓
+Model Invocation
+↓
+Policy Check
+↓
+Human Approval
+↓
+Tool Execution
+↓
+Final Response
+↓
+Run Completed
 ```
+
+Each event can expose metadata such as:
+
+- timestamps
+- duration
+- model
+- token usage
+- tool name
+- tool arguments
+- input/output
+- risk level
+- policy ID
+- execution summary
+
+ZEVQORA intentionally presents **execution summaries and system events**, not hidden model chain-of-thought.
+
+---
+
+## Agent Simulator
+
+The Simulator is a working browser-side execution experience rather than a static mockup.
+
+Users can:
+
+1. select an agent
+2. enter a test request
+3. start a simulated run
+4. watch execution events appear progressively
+5. inspect tool calls
+6. reach a policy gate
+7. approve or reject the requested action
+8. continue or terminate execution
+9. inspect resulting telemetry
+
+Example flow:
+
+```text
+Customer request
+↓
+Model invoked
+↓
+search_customer
+↓
+get_transactions
+↓
+Duplicate payment detected
+↓
+refund_payment requested
+↓
+Policy requires approval
+↓
+Human decision
+↓
+Execution continues or terminates
+```
+
+The simulator tracks demo telemetry such as:
+
+- tokens
+- cost
+- latency
+- tool-call count
+
+---
+
+## Evaluations
+
+Evaluate agent behaviour across test suites and quality criteria.
+
+The interface includes:
+
+- evaluation suites
+- evaluation run history
+- pass/fail states
+- aggregate system health
+- model comparison
+- criterion analysis
+
+Example criteria include:
+
+- accuracy
+- safety
+- hallucination resistance
+- tone compliance
+
+---
+
+## Experiments
+
+Compare models, prompts, retrieval strategies, and agent configurations.
+
+Experiment views support:
+
+- Variant A vs Variant B
+- accuracy comparison
+- latency comparison
+- cost-per-request comparison
+- traffic allocation
+- experiment status
+- experiment directory
+- demo experiment creation
+
+Each metric uses an independent visual scale so values with different units are not misleadingly compared against one shared axis.
+
+---
+
+## Human Approvals
+
+Sensitive actions can be placed behind a human approval gate.
+
+Examples include:
+
+```text
+refund_payment
+deploy_release
+override_rate_limit
+delete_database_records
+```
+
+Approval requests include:
+
+- urgency
+- requesting agent
+- policy
+- subsystem
+- risk score
+- execution context
+- action evidence
+- approval/rejection controls
+
+Approval state is shared with the Dashboard during the current browser session.
+
+---
+
+## Policies & Guardrails
+
+Policies define what agents may do and when human intervention is required.
+
+Supported policy concepts include:
+
+```ts
+allow;
+deny;
+require_approval;
+rate_limit;
+redact;
+```
+
+Example policies:
+
+- Block PII Disclosure
+- Require Approval for Refunds
+- Rate Limit External API Calls
+
+The policy interface supports:
+
+- policy selection
+- enabled/disabled state
+- attached agents
+- rule inspection
+- editable demo configuration
+- code-like policy definitions
+
+Changes apply to the demo session only.
+
+---
+
+## Incident Response
+
+The Incidents Command Center provides a structured workspace for agent-runtime failures and policy violations.
+
+Capabilities include:
+
+- severity filtering
+- incident selection
+- structured incident timelines
+- impacted-agent visibility
+- MTTR telemetry
+- simulated mitigation
+- simulated rollback
+- local log export
+
+Example incidents include:
+
+- elevated provider error rate
+- agent runtime crash loop
+- approval queue saturation
+- infinite execution loop
+- high database-agent latency
+
+---
+
+## Fleet Analytics
+
+Fleet Analytics provides long-term performance and cost telemetry.
+
+Metrics include:
+
+- total tokens
+- estimated model cost
+- latency percentiles
+- success rate
+- model usage
+
+Supported periods:
+
+```text
+24H
+7D
+30D
+```
+
+The latency visualization shows independent:
+
+- P50
+- P90
+- P99
+
+series rather than incorrectly stacking percentile values.
+
+Analytics snapshots can be exported as:
+
+- CSV
+- JSON
+
+---
+
+## Settings
+
+The Settings experience demonstrates platform configuration for:
+
+- organization identity
+- workspace configuration
+- environment switching
+- execution limits
+- API keys
+
+The active environment is shared across the application.
+
+API-key values are **fictional demo data only** and no real secret is generated or transmitted.
+
+---
+
+# Routes
+
+Every primary navigation destination is implemented.
+
+| Screen                   | Route          |
+| ------------------------ | -------------- |
+| Landing                  | `/`            |
+| Dashboard                | `/dashboard`   |
+| Agent Fleet              | `/agents`      |
+| Runs Explorer            | `/runs`        |
+| Trace Inspection         | `/runs/:runId` |
+| Simulator                | `/simulator`   |
+| Evaluations              | `/evaluations` |
+| Experiments              | `/experiments` |
+| Approval Queue           | `/approvals`   |
+| Policies & Guardrails    | `/policies`    |
+| Incidents Command Center | `/incidents`   |
+| Fleet Analytics          | `/analytics`   |
+| Settings                 | `/settings`    |
+
+Example trace:
+
+```text
+/runs/rn_8b9f4e2d_c1
+```
+
+---
+
+# Technology
+
+| Concern                    | Technology                      |
+| -------------------------- | ------------------------------- |
+| Framework                  | React 19                        |
+| Language                   | TypeScript                      |
+| Build tool                 | Vite 7                          |
+| Routing                    | React Router 7                  |
+| Styling                    | CSS Modules + custom properties |
+| Icons                      | Lucide React                    |
+| Charts                     | Custom SVG components           |
+| Unit / integration testing | Vitest                          |
+| UI testing                 | React Testing Library           |
+| Deployment                 | GitHub Pages                    |
+| CI / deployment            | GitHub Actions                  |
+
+The project deliberately uses:
+
+- no CSS framework
+- no component framework
+- no charting library
+- no backend framework
+
+The interface and chart system are built specifically for ZEVQORA's visual language.
+
+---
+
+# Design System
+
+ZEVQORA uses a developer-infrastructure visual system based on:
+
+- dark olive / charcoal surfaces
+- signal-lime interaction states
+- restrained borders
+- compact spacing
+- high information density
+- technical monospace metadata
+
+Core principles:
+
+```text
+Precision
+Control
+Observability
+Reliability
+Technical clarity
+```
+
+### Typography
+
+**Manrope**
+
+Used for:
+
+- navigation
+- page titles
+- descriptions
+- interface copy
+
+**IBM Plex Mono**
+
+Used for:
+
+- run IDs
+- model IDs
+- timestamps
+- token counts
+- costs
+- durations
+- tool names
+- policy expressions
+- structured technical data
+
+### Signal colour
+
+The ZEVQORA lime accent is intentionally reserved for:
+
+- selected states
+- successful/active runtime signals
+- primary actions
+- trace emphasis
+- important telemetry
+
+It is not used as a large decorative surface.
+
+---
+
+# Architecture
+
+```text
 src/
-├── app/            App shell composition, router, providers
-├── routes/         One module per screen
+├── app/
+│   ├── router
+│   └── providers
+│
+├── routes/
+│
 ├── components/
-│   ├── ui/         Button, Badge, Dialog, Panel, DataTable, States…
-│   ├── shell/      AppShell, Sidebar, Topbar, GlobalSearch, PageHeader
-│   ├── charts/     SVG chart components
-│   └── trace/      Trace nodes and the event inspector
-├── features/       Screen-specific logic (dashboard, runs, simulator…)
-├── domain/         Typed domain models
+│   ├── ui/
+│   ├── shell/
+│   ├── charts/
+│   └── trace/
+│
+├── features/
+│
+├── domain/
+│
 ├── services/
-│   ├── contracts/  Repository interfaces  ← the backend seam
-│   └── mock/       In-memory implementations
-├── mocks/          Seed data
-├── hooks/          useAsync, useSession
-├── lib/            Formatters, seeded RNG, clock
-├── styles/         Token layer
+│   ├── contracts/
+│   └── mock/
+│
+├── mocks/
+│
+├── hooks/
+│
+├── lib/
+│
+├── styles/
+│
 └── tests/
 ```
 
-### Backend-ready boundary
+The application separates:
 
-**UI code never imports mock data.** Every screen depends on an interface in
-`services/contracts`:
+```text
+Presentation
+↓
+Feature logic
+↓
+Service contracts
+↓
+Repository implementations
+↓
+Mock data
+```
+
+---
+
+# Backend-Ready Boundary
+
+UI modules do not directly import raw mock datasets.
+
+Instead, features depend on repository interfaces.
+
+Example:
 
 ```ts
 export interface AgentRepository {
-  list(filter?: AgentFilter): Promise<Agent[]>
-  getById(id: AgentId): Promise<Agent | null>
-  getByIds(ids: readonly AgentId[]): Promise<Agent[]>
-  listModels(): Promise<AgentModel[]>
+  list(filter?: AgentFilter): Promise<Agent[]>;
+  getById(id: AgentId): Promise<Agent | null>;
+  getByIds(ids: readonly AgentId[]): Promise<Agent[]>;
+  listModels(): Promise<AgentModel[]>;
 }
 ```
 
-`services/index.ts` is the single composition root that chooses an
-implementation. Adding a backend means writing `ApiAgentRepository` and changing
-that one file:
+The current implementation uses:
 
-```ts
-const useApi = import.meta.env.VITE_API_URL !== undefined
-return {
-  agents: useApi ? new ApiAgentRepository(client) : new MockAgentRepository(),
-  // …
-}
+```text
+MockAgentRepository
 ```
 
-No component, hook or feature module changes.
+A future backend could provide:
 
-Every repository method is `async` even though the mock layer could answer
-synchronously — so call sites already handle latency, loading and failure the
-way they will have to against a network.
-
-Every repository added for the second design export — **experiments**,
-**approvals**, **incidents**, **analytics** (fleet snapshot) and **settings**
-— follows the same contract-first shape: a `services/contracts` interface, a
-`MockXRepository` implementation, seed data in `@/mocks`, and a UI layer that
-only ever imports the contract.
-
-This boundary is enforced by tests (`src/tests/architecture.test.ts`) that fail
-the build if a UI module imports from `@/mocks` or constructs a repository
-directly.
-
-### Shared state across screens
-
-Where two screens read the same concept, they read it through the *same*
-repository rather than maintaining independent copies:
-
-- **Approvals** — the dashboard's Pending Approvals panel and the dedicated
-  Approval Queue both call `ApprovalRepository`. Approving a request in either
-  place removes it from both.
-- **Incidents** — the dashboard's Active Incidents panel and the Incidents
-  Command Center both call `IncidentRepository.listOpen()` / `.list()`.
-- **Environment** — `EnvironmentProvider` (`src/app/providers`) is the single
-  reactive source for the active environment. Settings' environment switch
-  calls `SettingsRepository.setEnvironment()`; the sidebar's environment pill
-  subscribes to the same provider, so it updates immediately rather than on
-  next navigation.
-
-### Simulator architecture
-
-The Simulator is not a chain of `setTimeout` calls inside a component.
-
+```text
+ApiAgentRepository
 ```
-SimulatorEngine  (framework-agnostic, injectable clock)
-      ↓ state snapshots
-useSimulator     (subscribes, disposes on unmount)
+
+while keeping the consuming UI unchanged.
+
+The same architecture is used for:
+
+- agents
+- runs
+- evaluations
+- experiments
+- approvals
+- policies
+- incidents
+- analytics
+- settings
+
+`services/index.ts` acts as the application composition root.
+
+---
+
+# Shared Data Coherence
+
+The mock layer is designed as one connected product dataset rather than unrelated screen fixtures.
+
+Examples:
+
+- Runs reference real agents from the Agent Fleet.
+- A run's model matches its agent's canonical deployment model.
+- Trace data resolves from real demo runs.
+- Approval policy IDs resolve to real policy records.
+- Incident agents resolve to fleet agents.
+- Dashboard approval counts use the same approval repository as Approval Queue.
+- Dashboard incident counts use the same incident repository as Incidents.
+- Environment changes in Settings update the global environment indicator.
+
+The model catalog is centralized and currently includes examples such as:
+
+- Claude Sonnet 5
+- Claude Opus 5
+- GPT-5.6
+- Gemini 3 Pro
+- Llama 4 Maverick
+
+---
+
+# Simulator Architecture
+
+The Simulator is implemented as a framework-independent execution engine rather than scattered timers inside React components.
+
+```text
+SimulatorEngine
       ↓
-React
+state snapshots
+      ↓
+useSimulator
+      ↓
+React UI
 ```
 
-`SimulatorEngine` owns the run lifecycle across
-`idle → running → awaiting_approval → completed | rejected | cancelled | failed`.
+Supported lifecycle:
 
-Scheduling invariants, all covered by tests:
+```text
+idle
+↓
+running
+↓
+awaiting_approval
+↓
+completed / rejected / cancelled / failed
+```
 
-- Exactly one timer is ever outstanding.
-- At the approval gate the engine schedules **nothing** — it genuinely waits.
-- Every scheduled callback re-checks a run generation counter, so a timer queued
-  before a cancel or restart cannot mutate the new run.
-- `dispose()` clears timers and listeners on unmount.
+The engine ensures:
 
-Timers are injected, so tests drive the engine with a virtual clock and assert
-real lifecycle behaviour without waiting on wall time.
+- controlled scheduling
+- explicit approval pauses
+- cancellation safety
+- stale-callback protection
+- timer cleanup
+- deterministic test behaviour
 
-### Mock data
-
-The dataset is generated from **fixed seeds** (`mulberry32`), so it is identical
-on every load and in every test run — a control plane whose numbers shuffle on
-refresh reads as fake. Timestamps derive from a fixed instant rather than
-`Date.now()`, so relative labels stay stable.
-
-The seed data is **coherent across screens**: a run in the Runs Explorer
-resolves to a real fleet agent, opens a real trace, and references policies that
-exist on the Policies screen. This is verified by tests.
-
-> **Deliberate reconciliations**, all made the same way: keep the number an
-> individual approved screen actually shows, resolve the underlying data so it
-> is real and shared rather than a duplicated literal, and document the
-> divergence here.
->
-> - The Stitch screens used different agent names on different screens
->   (`DataExtractor`, `Customer Support Agent`, `SupportBot Alpha`,
->   `CustomerSupport-v2` all appear). The Agent Fleet names were adopted as
->   canonical everywhere, and the fleet carries six agents rather than three so
->   every reference resolves to a real record; the first row of cards still
->   reproduces the approved screen exactly.
-> - The approved Dashboard shows "Active Incidents (3)"; the approved Incidents
->   Command Center separately shows "OPEN INCIDENTS: 12" and lists three
->   *different* named incidents. Both panels now read the same
->   `IncidentRepository` (six incidents total, including the dashboard's
->   original three), and the dashboard panel's count is live rather than a
->   fixed literal — so it now honestly reads "(6)" instead of a "(3)" that
->   would otherwise be disconnected from the data behind it. The same applies
->   to Approvals: the two new canonical requests (`AG-410-DP`, `AG-105-NW`)
->   replaced two generic filler entries so the pending count stays at the
->   approved literal of 12 rather than drifting to 15.
-> - The approved Settings screen's organization name ("Acme Corp Control")
->   conflicts with the workspace name shown everywhere else in the product
->   ("Acme Cloud"). "Acme Cloud" was kept for consistency with the sidebar,
->   session and dashboard.
+Timers are injectable, allowing tests to drive execution without depending on wall-clock timing.
 
 ---
 
-## Accessibility
+# Deterministic Mock Data
 
-- Semantic HTML with correct landmark structure and contiguous heading order
-  (verified per route).
-- Real `<button>` and `<a>` elements — no `href="#"`, no click handlers on divs.
-- Skip link as the first tab stop.
-- Visible `:focus-visible` rings (2px lime, never suppressed).
-- `aria-current="page"` on active navigation; `aria-sort` on sortable columns.
-- Dialogs trap focus, close on Escape, and restore focus to their opener.
-- Off-canvas panels use `visibility: hidden`, so a closed drawer is not
-  keyboard-focusable or announced.
-- `aria-live` regions for toasts and the approval gate; the gate announces
-  assertively because execution has halted awaiting a decision.
-- Accessible names on every icon-only control; labels on every form control.
-- Charts expose a `<title>` plus, where the data matters, a visually hidden
-  data table.
-- **Colour is never the only status indicator** — every status pairs a colour
-  with an icon and a text label.
-- `prefers-reduced-motion: reduce` is respected globally; the Simulator remains
-  fully understandable with animation disabled.
+ZEVQORA's generated data uses fixed seeds.
+
+This means:
+
+- the same runs appear after refresh
+- analytics stay stable
+- tests stay reproducible
+- screenshots remain predictable
+- cross-screen relationships remain coherent
+
+Timestamps are also derived from controlled fixture data instead of arbitrary runtime randomness.
 
 ---
 
-## Responsive behaviour
+# Accessibility
 
-Desktop fidelity comes first; below the desktop breakpoints the product is
-re-composed rather than shrunk. Verified at 1600 / 1440 / 1280 / 1024 / 768 /
-430 / 390 / 360 px with **no horizontal viewport overflow at any width**.
+Accessibility was treated as part of the implementation rather than a final visual patch.
 
-| Range | Behaviour |
-| --- | --- |
-| ≥ 1280px | Persistent 264px sidebar, docked inspector, multi-column bento |
-| 1024–1280px | Sidebar narrows to 240px, side panels stack |
-| ≤ 1024px | Sidebar becomes an overlay drawer; inspector becomes a sheet |
-| ≤ 768px | Single-column layouts; tables scroll inside their own container |
-| ≤ 430px | Navigation drawer, larger touch targets, trace stays usable |
+Implemented considerations include:
 
-Dense tables keep their columns and scroll horizontally **inside their own
-container** rather than exploding into stacked cards — the density is the
-product.
+- semantic HTML
+- logical heading hierarchy
+- skip navigation
+- keyboard-accessible controls
+- real links and buttons
+- visible `:focus-visible` states
+- `aria-current` navigation state
+- `aria-sort` for sortable tables
+- accessible dialogs
+- focus trapping
+- Escape-to-close
+- focus restoration
+- accessible icon-only controls
+- live regions for status changes
+- readable chart alternatives
+- status communicated through text/icons as well as colour
+- reduced-motion support
+
+The Simulator remains understandable when animation is reduced.
 
 ---
 
-## Local development
+# Responsive Behaviour
 
-Requires Node 20+.
+ZEVQORA is desktop-first because it represents a professional developer tool, but the product is fully responsive.
+
+Verified viewport targets include:
+
+```text
+1600px
+1440px
+1280px
+1024px
+768px
+430px
+390px
+360px
+```
+
+Responsive behaviour includes:
+
+- desktop persistent sidebar
+- tablet navigation drawer
+- mobile off-canvas navigation
+- inspector panels becoming sheets
+- stacked layouts where appropriate
+- internally scrollable dense tables
+- internally scrollable technical code blocks
+- mobile-friendly approval actions
+- trace usability on narrow screens
+
+Dense tables intentionally remain tables rather than turning every record into a giant mobile card.
+
+---
+
+# Testing
+
+The project currently includes:
+
+> **147 automated tests across six suites.**
+
+The tests focus on behaviour rather than snapshots.
+
+| Suite            | Coverage                                                                            |
+| ---------------- | ----------------------------------------------------------------------------------- |
+| Simulator Engine | Lifecycle, timers, approval pause, approve/reject, cancellation, telemetry          |
+| Repositories     | Filtering, sorting, pagination, state mutation, shared counts, data coherence       |
+| UI               | Navigation, filtering, trace selection, approvals, incidents, settings, experiments |
+| Routing          | All product routes, trace params, 404, navigation integrity                         |
+| Chart Math       | Metric normalization and percentile calculations                                    |
+| Architecture     | Repository-boundary enforcement and dependency rules                                |
+
+Important behaviours covered include:
+
+- run filtering
+- run sorting
+- trace event selection
+- approval resolution
+- incident filtering
+- simulated mitigation
+- evaluation switching
+- experiment comparison
+- analytics-period changes
+- API-key demo generation
+- environment switching
+- canonical model coherence
+- shared Dashboard counts
+- Simulator cleanup
+
+---
+
+# Quality Gates
+
+The published release passes:
+
+```text
+TypeScript strict typecheck
+ESLint
+147 / 147 automated tests
+Production build
+```
+
+Current lint state:
+
+```text
+0 errors
+```
+
+---
+
+# Local Development
+
+Requirements:
+
+```text
+Node.js 20+
+npm
+```
+
+Clone:
+
+```bash
+git clone https://github.com/allahverdi-dev/zevqora.git
+```
+
+Enter the project:
+
+```bash
+cd zevqora
+```
+
+Install dependencies:
 
 ```bash
 npm install
 ```
 
+Start development:
+
 ```bash
 npm run dev
 ```
 
-### Production build
-
-```bash
-npm run build
-```
-
-```bash
-npm run preview
-```
-
-### Quality commands
-
-| Script | Purpose |
-| --- | --- |
-| `npm run dev` | Dev server |
-| `npm run build` | Typecheck + production build |
-| `npm run preview` | Serve the production build |
-| `npm run typecheck` | TypeScript strict check |
-| `npm run lint` | ESLint |
-| `npm run test` | Vitest (watch) |
-| `npm run test:run` | Vitest (single run) |
-
 ---
 
-## Testing
+## Available Commands
 
-147 tests across six suites. They target behaviour, not implementation
-details — there are no snapshot tests.
+```bash
+npm run dev
+```
 
-| Suite | Covers |
-| --- | --- |
-| `simulator-engine` | Start, progression, approval pause, approve/reject branching, cancellation, timer cleanup, stale-callback safety, telemetry accrual |
-| `repositories` | Filtering, sorting, pagination, run lookup, policy state, evaluation scoring, experiment creation, approval urgency filtering and resolution, incident severity filtering and mitigation, analytics period scaling, settings/API-key mutation, dashboard-metric/repository consistency, canonical model catalog coherence, cross-screen data coherence, determinism |
-| `ui` | Runs filtering and sorting, trace event selection, inspector updates, policy selection and saving, evaluation suite switching, experiment selection, approval queue filtering/approve/reject, incident filtering/timeline/mitigation confirmation, analytics period switching, settings updates and key generation, agent-card accessibility, shell navigation state |
-| `routing` | Every registered route (all thirteen screens), run detail by URL param, invalid run, 404, no placeholder hrefs, no pending sidebar markers |
-| `chart-math` | Per-metric normalization and percentile-fraction helpers, in isolation from any component |
-| `architecture` | Repository boundary enforcement, no Stitch artifacts, no `alert()` |
+Start the Vite development server.
+
+```bash
+npm run typecheck
+```
+
+Run TypeScript strict checks.
+
+```bash
+npm run lint
+```
+
+Run ESLint.
+
+```bash
+npm run test
+```
+
+Run Vitest in watch mode.
 
 ```bash
 npm run test:run
 ```
 
----
+Run the complete test suite once.
 
-## Known limitations
+```bash
+npm run build
+```
 
-- No backend, authentication, or persistence. Refreshing discards every
-  in-session change: policy edits, approval/incident decisions, experiment
-  creation, and settings updates.
-- The Simulator follows scripted scenarios; it does not generate novel agent
-  behaviour.
-- Some controls are intentionally inert and say so via a toast rather than
-  failing silently: the Runs/Dashboard CSV and report exports, agent/policy
-  creation, logo upload, and Team/Security/Billing configuration (Analytics
-  and Incidents exports, by contrast, genuinely write a local file — see
-  above).
-- Charts are presentational SVG without tooltips or zoom.
-- No E2E suite — critical flows are covered by integration tests instead.
+Create the production build.
+
+```bash
+npm run preview
+```
+
+Preview the production build locally.
 
 ---
 
-## Future backend roadmap
+# Deployment
 
-- Authentication, organisations/workspaces, RBAC
-- PostgreSQL for agents, runs, traces, policies, evaluations
-- Real agent telemetry ingestion and model-provider integrations
-- SSE/WebSockets for live run streaming
-- Background workers for evaluation suites
-- Encrypted provider credential storage
-- GitHub and Slack integrations, webhooks
-- Audit logs and billing
+ZEVQORA is deployed through **GitHub Pages** using **GitHub Actions**.
 
----
+Live application:
 
-## A note on traces and model reasoning
+**https://allahverdi-dev.github.io/zevqora/**
 
-ZEVQORA records what the **control plane** observed about each step: the prompt
-sent, the tool selected, the arguments passed, the tokens billed, and the
-decision the application acted on.
+The deployment workflow:
 
-Fields labelled *execution summary*, *decision summary* or *tool-selection
-summary* are application-authored records — **not** a model's private internal
-chain-of-thought. ZEVQORA does not claim to expose provider-internal reasoning,
-and the mock data is written to reflect that distinction.
+1. installs dependencies
+2. runs typecheck
+3. runs lint
+4. runs the automated tests
+5. builds the production application
+6. publishes the generated artifact to GitHub Pages
 
----
+The Pages build uses:
 
-## AI-assisted development disclosure
+```text
+/zevqora/
+```
 
-This project was built through an AI-assisted workflow:
+as its Vite base path while local development continues to use `/`.
 
-- **Product direction and requirements** — human, with ChatGPT used to help
-  shape and iterate on the product brief
-- **UI design** — generated with Google Stitch, then reviewed and approved by a
-  human before implementation began
-- **Implementation** — written by Claude Code (Anthropic) from the approved
-  design export
-- **Review, testing, and iteration** — human-directed, with automated
-  typechecking, linting and tests gating the result
-
-The implementation is not hand-written without AI assistance, and this README
-does not claim otherwise. The architectural decisions, design-source
-reconciliations and trade-offs documented above were made during that process
-and are described here as they were actually resolved.
+A static SPA fallback allows React Router routes to render when deep-linked on GitHub Pages.
 
 ---
 
-## License
+# Security & Trust
 
-Portfolio demonstration project. The ZEVQORA brand, the Acme Cloud workspace and
-all data in this repository are fictional.
+ZEVQORA does not include real production credentials.
+
+The repository has been checked for:
+
+- `.env` files
+- provider API keys
+- bearer tokens
+- private keys
+- hard-coded passwords
+- production secrets
+
+The API-key interface contains only fictional masked credentials.
+
+Raw Stitch development archives and temporary design-reference exports are not part of the public repository.
+
+---
+
+# Current Limitations
+
+This version intentionally focuses on the frontend product experience.
+
+It currently does **not** include:
+
+- real user authentication
+- persistent accounts
+- production database
+- real agent execution
+- OpenAI / Anthropic / Google integrations
+- production tool execution
+- server-enforced policies
+- server-side incident management
+- WebSocket/SSE telemetry
+- payment infrastructure
+- persistent workspace configuration
+
+State changes such as approvals, policies, and settings are demo-session behaviours.
+
+---
+
+# Future Backend Roadmap
+
+The current architecture is intended to support a future backend layer.
+
+Potential future capabilities include:
+
+```text
+Authentication
+Organizations and Workspaces
+RBAC
+PostgreSQL
+Persistent run history
+Real agent telemetry ingestion
+Provider integrations
+SSE / WebSockets
+Background workers
+Encrypted credentials
+Webhooks
+Audit logs
+GitHub integrations
+Slack integrations
+Billing
+Production policy enforcement
+```
+
+---
+
+# AI-Assisted Development
+
+ZEVQORA was built through an **AI-assisted / vibe-coding workflow**.
+
+The development process involved:
+
+- **ChatGPT** — product direction, feature planning, architecture discussions, QA strategy, review, and iteration
+- **Google Stitch** — interface exploration and approved visual design references
+- **Claude Code** — implementation, refactoring, debugging, testing, responsive work, and deployment preparation
+
+AI tools were used as implementation partners rather than hidden from the development story.
+
+The project still required product-level decisions around:
+
+- what to build
+- which features belonged in the product
+- information architecture
+- interaction behaviour
+- visual direction
+- prompt design
+- design evaluation
+- implementation review
+- QA
+- bug identification
+- iteration priorities
+- GitHub organization
+- deployment
+- final acceptance
+
+ZEVQORA is also part of an ongoing process of strengthening frontend-development knowledge while using modern AI-assisted software-building workflows.
+
+---
+
+# Product Philosophy
+
+ZEVQORA is built around four principles:
+
+### Observe
+
+Know what an agent executed.
+
+### Evaluate
+
+Measure whether it performed well.
+
+### Govern
+
+Define what it is allowed to do.
+
+### Intervene
+
+Put a human in the loop when the risk is too high.
+
+---
+
+## ZEVQORA
+
+**Observe. Evaluate. Govern.**
+
+**Control what your agents can do.**
+
+**[Open Live Demo](https://allahverdi-dev.github.io/zevqora/)**
