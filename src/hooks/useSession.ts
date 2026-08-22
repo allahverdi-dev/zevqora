@@ -1,5 +1,6 @@
 import { useServices } from '@/app/providers/ServicesProvider'
 import { useAsync } from '@/hooks/useAsync'
+import { withBase } from '@/lib/asset-path'
 import type { Session } from '@/services/contracts'
 
 /**
@@ -16,7 +17,7 @@ const PLACEHOLDER: Session = {
     role: '',
     email: '',
     plan: '',
-    avatarUrl: '/demo/avatar.png',
+    avatarUrl: withBase('/demo/avatar.png'),
   },
   workspace: { id: '', name: '—', slug: '', environments: [] },
   environment: 'production',

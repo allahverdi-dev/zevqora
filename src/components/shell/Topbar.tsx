@@ -2,6 +2,7 @@ import { Bell, Menu, Search } from 'lucide-react'
 
 import { IconButton } from '@/components/ui/IconButton'
 import { useSession } from '@/hooks/useSession'
+import { withBase } from '@/lib/asset-path'
 import { cx } from '@/lib/cx'
 
 import styles from './Topbar.module.css'
@@ -79,7 +80,7 @@ export function Topbar({
           </span>
           <img
             src={account.avatarUrl}
-            srcSet={`${account.avatarUrl} 1x, /demo/avatar@2x.png 2x`}
+            srcSet={`${account.avatarUrl} 1x, ${withBase('/demo/avatar@2x.png')} 2x`}
             alt=""
             width={32}
             height={32}

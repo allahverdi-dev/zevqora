@@ -68,31 +68,41 @@ function lazyRoute(element: React.ReactNode) {
   return <Suspense fallback={<RouteFallback />}>{element}</Suspense>
 }
 
-export const router = createBrowserRouter([
-  {
-    path: '/',
-    element: lazyRoute(<LandingPage />),
-  },
-  {
-    element: <AppShell />,
-    children: [
-      { path: '/dashboard', element: lazyRoute(<DashboardPage />) },
-      { path: '/agents', element: lazyRoute(<AgentsPage />) },
-      { path: '/runs', element: lazyRoute(<RunsPage />) },
-      { path: '/runs/:runId', element: lazyRoute(<TracePage />) },
-      { path: '/simulator', element: lazyRoute(<SimulatorPage />) },
-      { path: '/evaluations', element: lazyRoute(<EvaluationsPage />) },
-      { path: '/experiments', element: lazyRoute(<ExperimentsPage />) },
-      { path: '/approvals', element: lazyRoute(<ApprovalsPage />) },
-      { path: '/policies', element: lazyRoute(<PoliciesPage />) },
-      { path: '/incidents', element: lazyRoute(<IncidentsPage />) },
-      { path: '/analytics', element: lazyRoute(<AnalyticsPage />) },
-      { path: '/settings', element: lazyRoute(<SettingsPage />) },
+// Vite's BASE_URL is '/' locally and '/zevqora/' in the GitHub Pages build
+// (see vite.config.ts). React Router's basename wants no trailing slash
+// (except the root case, where '/' is the correct value), so normalize it
+// once here rather than hard-coding the deployment path into the router.
+const baseUrl = import.meta.env.BASE_URL
+const basename = baseUrl.length > 1 ? baseUrl.replace(/\/$/, '') : baseUrl
 
-      // Legacy/alias paths.
-      { path: '/overview', element: <Navigate to="/dashboard" replace /> },
+export const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: lazyRoute(<LandingPage />),
+    },
+    {
+      element: <AppShell />,
+      children: [
+        { path: '/dashboard', element: lazyRoute(<DashboardPage />) },
+        { path: '/agents', element: lazyRoute(<AgentsPage />) },
+        { path: '/runs', element: lazyRoute(<RunsPage />) },
+        { path: '/runs/:runId', element: lazyRoute(<TracePage />) },
+        { path: '/simulator', element: lazyRoute(<SimulatorPage />) },
+        { path: '/evaluations', element: lazyRoute(<EvaluationsPage />) },
+        { path: '/experiments', element: lazyRoute(<ExperimentsPage />) },
+        { path: '/approvals', element: lazyRoute(<ApprovalsPage />) },
+        { path: '/policies', element: lazyRoute(<PoliciesPage />) },
+        { path: '/incidents', element: lazyRoute(<IncidentsPage />) },
+        { path: '/analytics', element: lazyRoute(<AnalyticsPage />) },
+        { path: '/settings', element: lazyRoute(<SettingsPage />) },
 
-      { path: '*', element: <NotFound /> },
-    ],
-  },
-])
+        // Legacy/alias paths.
+        { path: '/overview', element: <Navigate to="/dashboard" replace /> },
+
+        { path: '*', element: <NotFound /> },
+      ],
+    },
+  ],
+  { basename },
+)

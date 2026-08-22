@@ -4,6 +4,10 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // GitHub Pages serves this project from /zevqora/, not the domain root.
+  // The CI build sets VITE_BASE_PATH=/zevqora/; local dev and `vite preview`
+  // are unaffected and keep serving from /.
+  base: process.env.VITE_BASE_PATH ?? '/',
   plugins: [react()],
   resolve: {
     alias: {

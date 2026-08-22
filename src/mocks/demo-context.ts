@@ -1,6 +1,7 @@
 import type { Workspace } from '@/domain'
 
 import { DEMO_INSTANT } from '@/lib/clock'
+import { withBase } from '@/lib/asset-path'
 
 /**
  * Fixed anchors for the demo dataset.
@@ -59,5 +60,5 @@ export const DEMO_ACCOUNT: DemoAccount = {
   role: 'Lead Architect',
   email: 's.miller@acme.com',
   plan: 'PRO ACCOUNT',
-  avatarUrl: '/demo/avatar.png',
+  avatarUrl: withBase('/demo/avatar.png'),
 }
