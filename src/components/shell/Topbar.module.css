@@ -1,0 +1,146 @@
+.topbar {
+  /* Positioning lives in layout.css. */
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex: 1;
+  min-width: 0;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-shrink: 0;
+}
+
+/* Hidden until the sidebar collapses into a drawer. */
+.navToggle {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .navToggle {
+    display: inline-flex;
+  }
+}
+
+/* Global search trigger ---------------------------------------------------- */
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: min(384px, 100%);
+  padding: 6px var(--space-md);
+  background-color: var(--color-surface-container-low);
+  border: var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--color-on-surface-variant);
+  text-align: left;
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.search:hover {
+  border-color: var(--color-outline);
+}
+
+.searchIcon {
+  flex-shrink: 0;
+}
+
+.searchLabel {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-body-sm-size);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kbd {
+  flex-shrink: 0;
+  padding: 1px 5px;
+  background-color: var(--color-surface-container);
+  border: var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--color-on-surface-variant);
+}
+
+/* Notifications ----------------------------------------------------------- */
+.bellWrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.bellDot {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-error);
+}
+
+/* Account ----------------------------------------------------------------- */
+.account {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding-inline-start: var(--space-lg);
+  border-inline-start: var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.accountText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.2;
+}
+
+.accountName {
+  font-size: var(--text-body-sm-size);
+  font-weight: 700;
+  color: var(--color-on-surface);
+}
+
+.accountPlan {
+  font-size: 10px;
+  color: var(--color-on-surface-variant);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  border: var(--border-default);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .accountText {
+    display: none;
+  }
+
+  .account {
+    padding-inline-start: var(--space-md);
+  }
+
+  .searchLabel {
+    display: none;
+  }
+
+  .search {
+    width: auto;
+    padding: 6px var(--space-sm);
+  }
+
+  .kbd {
+    display: none;
+  }
+}

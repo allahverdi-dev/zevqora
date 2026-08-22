@@ -1,0 +1,112 @@
+/**
+ * Dense data table.
+ *
+ * Row height, header treatment and hover behaviour follow the approved Runs
+ * Explorer render: no alternating row fills, a single 1px bottom rule per row,
+ * and a tonal hover highlight.
+ */
+
+.scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  min-width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-body-sm-size);
+}
+
+.headRow {
+  background-color: var(--color-surface-container-high);
+}
+
+.th {
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-label-caps-size);
+  line-height: var(--text-label-caps-line);
+  letter-spacing: var(--text-label-caps-tracking);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+  white-space: nowrap;
+  border-block-end: var(--border-subtle);
+}
+
+/* Sortable column headers are real buttons. */
+.sortButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  border-radius: var(--radius-sm);
+}
+
+.sortButton:hover {
+  color: var(--color-on-surface);
+}
+
+.sortIcon {
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+
+.sortIconActive {
+  opacity: 1;
+  color: var(--color-primary-container);
+}
+
+.alignEnd {
+  text-align: right;
+}
+
+.row {
+  border-block-end: var(--border-subtle);
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.row:last-child {
+  border-block-end: none;
+}
+
+.rowInteractive:hover,
+.rowInteractive:focus-within {
+  background-color: var(--color-surface-container-high);
+  cursor: pointer;
+}
+
+.td {
+  padding: var(--space-md);
+  color: var(--color-on-surface-variant);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* The whole row is clickable, but the link is what receives focus. */
+.rowLink {
+  display: inline-block;
+  border-radius: var(--radius-sm);
+}
+
+.rowLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.relative {
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .th,
+  .td {
+    padding: var(--space-sm) var(--space-md);
+  }
+}

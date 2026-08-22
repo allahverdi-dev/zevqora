@@ -1,0 +1,174 @@
+/**
+ * Responsive behaviour.
+ *
+ * Desktop fidelity to the approved renders comes first. Below the desktop
+ * breakpoints the product is re-composed — not shrunk. Technical density is
+ * preserved at every size; tables keep their columns rather than exploding
+ * into stacked cards, and the trace stays usable on a phone.
+ *
+ * Breakpoints: 1600 / 1440 / 1280 / 1024 / 768 / 430 / 390 / 360
+ */
+
+/* --- 1440px: tighten the fixed panels slightly ---------------------------- */
+@media (max-width: 1440px) {
+  :root {
+    --inspector-width: 340px;
+  }
+
+  .page {
+    padding-inline: var(--space-lg);
+  }
+}
+
+/* --- 1280px: metric row wraps to three columns ---------------------------- */
+@media (max-width: 1280px) {
+  :root {
+    --sidebar-width: 240px;
+  }
+
+  .grid--metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* --- 1024px: sidebar becomes an overlay drawer ---------------------------- */
+@media (max-width: 1024px) {
+  /* Off-canvas panels are hidden with `visibility`, not transform alone:
+   * a translated-away panel still receives Tab focus and is still announced,
+   * which would let keyboard and screen-reader users land on controls they
+   * cannot see. The visibility change is delayed so the slide-out still plays. */
+  .sidebar {
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition:
+      transform var(--duration-base) var(--ease-standard),
+      visibility 0s linear var(--duration-base);
+    box-shadow: none;
+  }
+
+  .sidebar[data-open='true'] {
+    transform: translateX(0);
+    visibility: visible;
+    transition:
+      transform var(--duration-base) var(--ease-standard),
+      visibility 0s;
+    box-shadow: var(--shadow-popover);
+  }
+
+  .topbar {
+    inset-inline-start: 0;
+  }
+
+  .workspace {
+    padding-inline-start: 0;
+  }
+
+  /* The inspector detaches into a right-hand sheet. */
+  .split-view {
+    position: relative;
+  }
+
+  .split-view__inspector {
+    position: fixed;
+    inset-block: var(--topbar-height) 0;
+    inset-inline-end: 0;
+    width: min(var(--inspector-width), 100vw);
+    z-index: var(--z-overlay);
+    transform: translateX(100%);
+    visibility: hidden;
+    transition:
+      transform var(--duration-base) var(--ease-standard),
+      visibility 0s linear var(--duration-base);
+    border-inline-start: var(--border-strong);
+  }
+
+  .split-view__inspector[data-open='true'] {
+    transform: translateX(0);
+    visibility: visible;
+    transition:
+      transform var(--duration-base) var(--ease-standard),
+      visibility 0s;
+    box-shadow: var(--shadow-popover);
+  }
+
+  .grid--bento,
+  .grid--thirds {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+}
+
+/* --- 768px: tablet portrait ---------------------------------------------- */
+@media (max-width: 768px) {
+  .page {
+    padding: var(--space-lg) var(--space-md);
+    gap: var(--space-lg);
+  }
+
+  .grid--metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid--bento,
+  .grid--halves,
+  .grid--thirds {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .col-span-2 {
+    grid-column: span 1 / span 1;
+  }
+
+  .topbar {
+    padding-inline: var(--space-md);
+  }
+
+  /* Dense tables scroll horizontally inside their own container rather than
+   * pushing the viewport sideways. */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* --- 430px and below: phones --------------------------------------------- */
+@media (max-width: 430px) {
+  :root {
+    --sidebar-width: 280px;
+    --space-xl: 24px;
+  }
+
+  .page {
+    padding: var(--space-md) var(--space-md);
+  }
+
+  .grid--metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .split-view__inspector {
+    width: 100vw;
+  }
+
+  /* Touch targets stay reachable. */
+  button,
+  a[role='button'] {
+    min-height: 40px;
+  }
+}
+
+@media (max-width: 360px) {
+  .grid--metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Nothing may push the document sideways at any width. */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}

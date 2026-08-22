@@ -1,0 +1,41 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 320 64"
+  width="320"
+  height="64"
+  fill="none"
+  role="img"
+  aria-label="ZEVQORA"
+>
+  <title>ZEVQORA</title>
+  <!-- Lockup: the mark followed by the ZEVQORA wordmark, matching the
+       approved brand-mark render (lime mark, light wordmark). -->
+  <g
+    stroke="#bff440"
+    stroke-width="3.25"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <circle cx="42" cy="32" r="14.5" opacity="0.9" />
+    <path d="M31.5 41.5a14.5 14.5 0 0 1 2.6-17.2" opacity="0.55" />
+    <path d="M16 16.5h23.5L18.5 47.5H40" />
+    <path d="M24.5 35.5 43 25.5l11 20" />
+  </g>
+  <g fill="#bff440">
+    <circle cx="16" cy="16.5" r="3.6" />
+    <circle cx="24.5" cy="35.5" r="3.6" />
+    <circle cx="43" cy="25.5" r="3.6" />
+    <circle cx="54" cy="45.5" r="3.6" />
+  </g>
+  <text
+    x="76"
+    y="42"
+    fill="#e2e4d2"
+    font-family="Manrope, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
+    font-size="26"
+    font-weight="700"
+    letter-spacing="2.6"
+  >
+    ZEVQORA
+  </text>
+</svg>

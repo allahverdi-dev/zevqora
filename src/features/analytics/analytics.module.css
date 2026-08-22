@@ -1,0 +1,100 @@
+.periodTabs {
+  display: inline-flex;
+  border: var(--border-default);
+  border-radius: var(--radius-default);
+  overflow: hidden;
+}
+
+.periodTab {
+  padding: var(--space-xs) var(--space-md);
+  background-color: var(--color-surface-container);
+  color: var(--color-on-surface-variant);
+  font-family: var(--font-mono);
+  font-size: var(--text-code-sm-size);
+  border-right: var(--border-subtle);
+}
+
+.periodTab:last-child {
+  border-right: none;
+}
+
+.periodTabActive {
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+  font-weight: 600;
+}
+
+.metricRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+.metricCard {
+  padding: var(--space-md);
+  background-color: var(--color-surface-container);
+  border: var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.metricValue {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-on-background);
+}
+
+.metricDelta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.deltaPositive {
+  color: var(--color-status-success);
+}
+
+.deltaNegative {
+  color: var(--color-error);
+}
+
+.deltaNeutral {
+  color: var(--color-on-surface-variant);
+}
+
+.metricSparkline {
+  margin-top: var(--space-xs);
+  height: 32px;
+}
+
+.matrixLayout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-md);
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .matrixLayout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .metricRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.exportRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.exportActions {
+  display: flex;
+  gap: var(--space-sm);
+}

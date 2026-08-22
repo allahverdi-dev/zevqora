@@ -1,0 +1,73 @@
+/**
+ * Typography scale.
+ *
+ * Two typefaces with a strict division of labour:
+ *   Manrope       — narrative UI: headings, labels, instructional copy.
+ *   IBM Plex Mono — machine-generated data: run IDs, model IDs, timestamps,
+ *                   costs, token counts, durations, tool names, policy
+ *                   expressions, trace metadata.
+ */
+
+.text-display-lg {
+  font-family: var(--font-sans);
+  font-size: var(--text-display-lg-size);
+  line-height: var(--text-display-lg-line);
+  letter-spacing: var(--text-display-lg-tracking);
+  font-weight: var(--text-display-lg-weight);
+}
+
+.text-headline-md {
+  font-family: var(--font-sans);
+  font-size: var(--text-headline-md-size);
+  line-height: var(--text-headline-md-line);
+  letter-spacing: var(--text-headline-md-tracking);
+  font-weight: var(--text-headline-md-weight);
+}
+
+.text-body-md {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md-size);
+  line-height: var(--text-body-md-line);
+  font-weight: var(--text-body-md-weight);
+}
+
+.text-body-sm {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-line);
+  font-weight: var(--text-body-sm-weight);
+}
+
+/* Technical data. */
+.text-code-md,
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-code-md-size);
+  line-height: var(--text-code-md-line);
+  font-weight: var(--text-code-md-weight);
+  font-variant-ligatures: none;
+}
+
+.text-code-sm {
+  font-family: var(--font-mono);
+  font-size: var(--text-code-sm-size);
+  line-height: var(--text-code-sm-line);
+  font-weight: var(--text-code-sm-weight);
+  font-variant-ligatures: none;
+}
+
+/* Section headers in sidebars and small metadata categories. */
+.text-label-caps {
+  font-family: var(--font-sans);
+  font-size: var(--text-label-caps-size);
+  line-height: var(--text-label-caps-line);
+  letter-spacing: var(--text-label-caps-tracking);
+  font-weight: var(--text-label-caps-weight);
+  text-transform: uppercase;
+}
+
+/* Numeric data aligns in columns — tabular figures everywhere it matters. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}

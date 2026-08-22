@@ -1,0 +1,20 @@
+.workspace {
+  /* Structural rules live in layout.css. */
+}
+
+/* Scrim behind the navigation drawer, below the tablet breakpoint. */
+.navScrim {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-sidebar) - 1);
+  background-color: rgba(6, 8, 3, 0.6);
+  display: none;
+  border-radius: 0;
+  cursor: default;
+}
+
+@media (max-width: 1024px) {
+  .navScrim {
+    display: block;
+  }
+}

@@ -1,0 +1,54 @@
+.metricSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background-color: var(--color-surface-container);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.periodSelect {
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--color-surface);
+  border: var(--border-subtle);
+  border-radius: var(--radius-default);
+  color: var(--color-on-surface-variant);
+  font-size: 12px;
+}
+
+.chartBody {
+  padding: var(--space-lg);
+  justify-content: center;
+}
+
+.costBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  height: 100%;
+}
+
+.costFigures {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.costTotal {
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 600;
+  color: var(--color-on-surface);
+}
+
+.costCaption {
+  color: var(--color-on-surface-variant);
+}
+
+.controlColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-width: 0;
+}

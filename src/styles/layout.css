@@ -1,0 +1,169 @@
+/**
+ * Application shell layout.
+ *
+ * Fixed-Fluid Hybrid: the sidebar and inspector panels hold fixed widths
+ * while the central control-plane workspace is fluid.
+ */
+
+.app-shell {
+  min-height: 100vh;
+  background-color: var(--color-surface);
+}
+
+/* ---------------------------------------------------------------------------
+ * Sidebar
+ * ------------------------------------------------------------------------ */
+.sidebar {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-container-lowest);
+  border-inline-end: var(--border-subtle);
+  z-index: var(--z-sidebar);
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  border-block-end: var(--border-subtle);
+  min-height: var(--topbar-height);
+}
+
+.sidebar__brand-name {
+  font-family: var(--font-sans);
+  font-size: var(--text-headline-md-size);
+  line-height: var(--text-headline-md-line);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-on-surface);
+}
+
+.sidebar__nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-lg) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.sidebar__footer {
+  margin-block-start: auto;
+  border-block-start: var(--border-subtle);
+  padding: var(--space-lg) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* ---------------------------------------------------------------------------
+ * Topbar
+ * ------------------------------------------------------------------------ */
+.topbar {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  inset-inline-start: var(--sidebar-width);
+  height: var(--topbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-inline: var(--space-lg);
+  background-color: rgba(17, 21, 10, 0.85);
+  backdrop-filter: blur(12px);
+  border-block-end: var(--border-subtle);
+  z-index: var(--z-topbar);
+}
+
+/* ---------------------------------------------------------------------------
+ * Workspace
+ * ------------------------------------------------------------------------ */
+.workspace {
+  padding-inline-start: var(--sidebar-width);
+  padding-block-start: var(--topbar-height);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.workspace__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Standard padded page body. Trace inspection opts out via .page--flush. */
+.page {
+  padding: var(--space-xl) var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  width: 100%;
+  max-width: var(--content-max-width);
+  min-width: 0;
+}
+
+.page--flush {
+  padding: 0;
+  gap: 0;
+  max-width: none;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Split view: fluid trace column + fixed inspector. */
+.split-view {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+
+.split-view__main {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+.split-view__inspector {
+  width: var(--inspector-width);
+  flex-shrink: 0;
+  border-inline-start: var(--border-subtle);
+  background-color: var(--color-surface-container-lowest);
+  overflow-y: auto;
+}
+
+/* ---------------------------------------------------------------------------
+ * Grid helpers used by the dashboard bento layout.
+ * ------------------------------------------------------------------------ */
+.grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.grid--metrics {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.grid--bento {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid--halves {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid--thirds {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}

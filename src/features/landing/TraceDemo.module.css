@@ -1,0 +1,349 @@
+.panel {
+  position: relative;
+  width: 100%;
+  padding: var(--space-xl);
+  background-color: var(--color-surface-container-low);
+  border: 1px solid var(--color-surface-container-highest);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+/* Tonal wash rather than a decorative gradient — keeps depth without glass. */
+.panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-surface-container-low) 0%,
+    var(--color-surface) 60%,
+    var(--color-background) 100%
+  );
+  pointer-events: none;
+}
+
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: var(--space-lg);
+}
+
+.traceColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: var(--space-sm);
+}
+
+.traceId {
+  color: var(--color-on-surface-variant);
+}
+
+.dots {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface-container-highest);
+}
+
+/* Trace node -------------------------------------------------------------- */
+.node {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  min-width: 0;
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nodeIcon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-container-high);
+  border: 1px solid var(--color-surface-container-highest);
+  color: var(--color-on-surface-variant);
+}
+
+.nodeIconAgent {
+  border-color: rgba(191, 244, 64, 0.3);
+  color: var(--color-primary-container);
+}
+
+.nodeIconPolicy {
+  border-color: rgba(255, 180, 171, 0.5);
+  color: var(--color-error);
+}
+
+.nodeIconApproved {
+  border-color: rgba(191, 244, 64, 0.5);
+  color: var(--color-primary-container);
+}
+
+.nodeIconRejected {
+  border-color: rgba(141, 147, 123, 0.5);
+  color: var(--color-on-surface-variant);
+}
+
+.livePip {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-container);
+}
+
+/* The Trace Line itself. */
+.line {
+  width: 1px;
+  flex: 1;
+  min-height: var(--space-xl);
+  background-color: var(--color-surface-container-highest);
+}
+
+.card {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-md);
+  background-color: var(--color-surface-container);
+  border: 1px solid var(--color-surface-container-highest);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.cardText {
+  color: var(--color-on-surface);
+}
+
+.cardMuted {
+  color: var(--color-on-surface-variant);
+}
+
+.toolRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.toolChip {
+  padding: 2px var(--space-sm);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-container-highest);
+  border: 1px solid var(--color-surface-variant);
+  color: var(--color-on-surface-variant);
+}
+
+.toolArrow {
+  color: var(--color-on-surface-variant);
+  flex-shrink: 0;
+}
+
+/* Policy gate ------------------------------------------------------------- */
+.policyCard {
+  border-color: rgba(255, 180, 171, 0.3);
+  box-shadow: 0 0 15px rgba(255, 180, 171, 0.08);
+}
+
+.policyCardApproved {
+  border-color: rgba(191, 244, 64, 0.35);
+  box-shadow: 0 0 15px rgba(191, 244, 64, 0.08);
+}
+
+.policyCardRejected {
+  border-color: rgba(141, 147, 123, 0.4);
+  box-shadow: none;
+}
+
+.policyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.policyTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.policyDot {
+  background-color: var(--color-error);
+}
+
+.policyLabel {
+  color: var(--color-error);
+}
+
+.policyCardApproved .policyDot {
+  background-color: var(--color-primary-container);
+}
+
+.policyCardApproved .policyLabel {
+  color: var(--color-primary-container);
+}
+
+.policyCardRejected .policyDot {
+  background-color: var(--color-on-surface-variant);
+}
+
+.policyCardRejected .policyLabel {
+  color: var(--color-on-surface-variant);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.action {
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-default);
+  font-family: var(--font-mono);
+  font-size: var(--text-code-sm-size);
+  line-height: var(--text-code-sm-line);
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+.approve {
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-fixed);
+  font-weight: 700;
+}
+
+.approve:hover {
+  background-color: var(--color-primary-fixed-dim);
+}
+
+.reject {
+  background-color: transparent;
+  border-color: var(--color-surface-container-highest);
+  color: var(--color-on-surface-variant);
+}
+
+.reject:hover {
+  background-color: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+}
+
+.outcome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.outcomeText {
+  color: var(--color-on-surface);
+}
+
+.reset {
+  font-family: var(--font-sans);
+  font-size: var(--text-code-sm-size);
+  color: var(--color-on-surface-variant);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.reset:hover {
+  color: var(--color-on-surface);
+}
+
+/* Context sidebar --------------------------------------------------------- */
+.context {
+  border-inline-start: 1px solid var(--color-surface-container-highest);
+  padding-inline-start: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.contextHeading {
+  color: var(--color-on-surface-variant);
+  margin-block-end: var(--space-xs);
+}
+
+.contextList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: 0 0 var(--space-md);
+}
+
+.contextRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding-block-end: var(--space-xs);
+  border-block-end: 1px solid var(--color-surface-container-highest);
+}
+
+.contextLabel {
+  color: var(--color-on-surface-variant);
+  margin: 0;
+}
+
+.contextValue {
+  color: var(--color-on-surface);
+  margin: 0;
+}
+
+.policyChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .context {
+    border-inline-start: none;
+    padding-inline-start: 0;
+    border-block-start: 1px solid var(--color-surface-container-highest);
+    padding-block-start: var(--space-lg);
+  }
+}
+
+@media (max-width: 430px) {
+  .panel {
+    padding: var(--space-md);
+  }
+}

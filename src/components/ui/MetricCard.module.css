@@ -1,0 +1,60 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  background-color: var(--color-surface-container);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.card:hover {
+  border-color: var(--color-outline-variant);
+}
+
+.cardInteractive:hover {
+  border-color: rgba(191, 244, 64, 0.4);
+}
+
+.label {
+  color: var(--color-on-surface-variant);
+}
+
+.value {
+  font-size: var(--text-headline-md-size);
+  line-height: var(--text-headline-md-line);
+  font-weight: 600;
+  color: var(--color-on-surface);
+}
+
+.valueSignal {
+  color: var(--color-primary-container);
+}
+
+.valueError {
+  color: var(--color-error);
+}
+
+.caption {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-block-start: var(--space-xs);
+}
+
+.tonePositive,
+.toneSignal {
+  color: var(--color-primary-container);
+}
+
+.toneNegative {
+  color: var(--color-error);
+}
+
+.toneNeutral {
+  color: var(--color-on-surface-variant);
+}

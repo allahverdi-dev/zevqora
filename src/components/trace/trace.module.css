@@ -1,0 +1,451 @@
+/* ---------------------------------------------------------------------------
+ * Execution trace
+ * ------------------------------------------------------------------------ */
+
+.traceList {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* The Trace Line: one continuous 1px rule the nodes hang from. */
+.traceList::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 11px;
+  inset-block: 16px 0;
+  width: 1px;
+  background-color: rgba(67, 73, 53, 0.4);
+}
+
+.node {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs);
+}
+
+/* Control point where the node meets the Trace Line. */
+.nodeDot {
+  position: absolute;
+  inset-inline-start: -19px;
+  inset-block-start: 14px;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-outline-variant);
+  box-shadow: 0 0 0 4px var(--color-surface);
+  z-index: 1;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.node:hover .nodeDot {
+  background-color: var(--color-primary-container);
+}
+
+.nodeDotActive {
+  background-color: var(--color-primary-container);
+}
+
+.nodeDotPolicy {
+  background-color: var(--color-error);
+}
+
+.nodeButton {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  text-align: left;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+.nodeButton:hover {
+  background-color: rgba(30, 33, 21, 0.6);
+  border-color: rgba(67, 73, 53, 0.4);
+}
+
+.nodeButtonActive {
+  background-color: var(--color-surface-container);
+  border-color: rgba(191, 244, 64, 0.35);
+}
+
+/* Policy interventions and approvals get a distinct structural treatment. */
+.nodePolicy .nodeButton {
+  border-color: rgba(255, 180, 171, 0.4);
+  background-color: rgba(30, 33, 21, 0.5);
+  border-inline-start-width: 3px;
+  border-inline-start-color: var(--color-error);
+}
+
+.nodePolicy .nodeButtonActive {
+  border-color: var(--color-error);
+  border-inline-start-color: var(--color-error);
+}
+
+.nodeApproval .nodeButton {
+  border-inline-start-width: 3px;
+  border-inline-start-color: var(--color-primary-container);
+}
+
+.nodeHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.nodeTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.nodeIcon {
+  flex-shrink: 0;
+}
+
+.nodeLabel {
+  font-size: var(--text-body-md-size);
+  line-height: var(--text-body-md-line);
+  color: var(--color-on-surface);
+}
+
+.nodeLabelStrong {
+  font-weight: 600;
+}
+
+.toolName {
+  color: var(--color-primary-container);
+}
+
+.durationChip {
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-container);
+  color: var(--color-on-surface-variant);
+}
+
+.nodeMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.tokenCount {
+  color: var(--color-on-surface);
+}
+
+.waitLabel,
+.nodeTime {
+  color: var(--color-on-surface-variant);
+}
+
+/* Node body --------------------------------------------------------------- */
+.nodeBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-inline-start: calc(18px + var(--space-sm));
+  width: 100%;
+  min-width: 0;
+}
+
+.quote {
+  color: var(--color-on-surface-variant);
+  font-style: italic;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.payload {
+  display: block;
+  padding: var(--space-sm);
+  background-color: var(--color-surface-container-low);
+  border: var(--border-subtle);
+  border-radius: var(--radius-default);
+  color: var(--color-primary-container);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.payloadDanger {
+  color: var(--color-error);
+  border-color: rgba(255, 180, 171, 0.25);
+}
+
+.approvedBy {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.approverAvatar {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface-container-highest);
+  border: var(--border-default);
+  flex-shrink: 0;
+}
+
+.approverText,
+.responseText {
+  color: var(--color-on-surface-variant);
+}
+
+.responseText {
+  padding: var(--space-md);
+  background-color: var(--color-surface-container);
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  font-style: italic;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-block-start: var(--space-sm);
+  border-radius: var(--radius-sm);
+  color: var(--color-on-surface-variant);
+  flex-shrink: 0;
+}
+
+.toggle:hover {
+  background-color: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+}
+
+/* Icon tones -------------------------------------------------------------- */
+.tone_default {
+  color: var(--color-on-surface);
+}
+.tone_signal {
+  color: var(--color-primary-container);
+}
+.tone_secondary {
+  color: var(--color-secondary);
+}
+.tone_muted {
+  color: var(--color-outline);
+}
+.tone_danger {
+  color: var(--color-error);
+}
+
+/* ---------------------------------------------------------------------------
+ * Inspector
+ * ------------------------------------------------------------------------ */
+
+.inspector,
+.inspectorEmpty {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.inspectorEmpty {
+  justify-content: center;
+}
+
+.inspectorHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  border-block-end: var(--border-subtle);
+  flex-shrink: 0;
+  min-height: var(--topbar-height);
+}
+
+.inspectorTitle {
+  color: var(--color-on-surface);
+}
+
+.inspectorBody {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.inspectorSummary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-block-end: var(--space-md);
+  border-block-end: var(--border-subtle);
+}
+
+.inspectorIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-container-high);
+  border: var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.toneBg_danger {
+  color: var(--color-error);
+  border-color: rgba(255, 180, 171, 0.3);
+  background-color: rgba(255, 180, 171, 0.08);
+}
+.toneBg_signal {
+  color: var(--color-primary-container);
+  border-color: rgba(191, 244, 64, 0.3);
+  background-color: rgba(191, 244, 64, 0.08);
+}
+.toneBg_secondary {
+  color: var(--color-secondary);
+}
+.toneBg_muted {
+  color: var(--color-outline);
+}
+.toneBg_default {
+  color: var(--color-on-surface);
+}
+
+.inspectorSummaryText {
+  min-width: 0;
+}
+
+.inspectorEventName {
+  font-size: var(--text-body-md-size);
+  font-weight: 600;
+  color: var(--color-on-surface);
+}
+
+.inspectorEventMeta {
+  color: var(--color-on-surface-variant);
+}
+
+/* Field grid -------------------------------------------------------------- */
+.fieldGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+  margin: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-width: 0;
+}
+
+.fieldLabel {
+  color: var(--color-on-surface-variant);
+}
+
+.fieldValue {
+  margin: 0;
+  color: var(--color-on-surface);
+  overflow-wrap: break-word;
+}
+
+.fieldValueDanger {
+  color: var(--color-error);
+}
+
+/* Sections ---------------------------------------------------------------- */
+.inspectorSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-block-start: var(--space-md);
+  border-block-start: var(--border-subtle);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.sectionLabel {
+  color: var(--color-on-surface-variant);
+}
+
+.contextBox {
+  padding: var(--space-md);
+  background-color: var(--color-surface-container);
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--color-on-surface-variant);
+}
+
+.copyButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-sans);
+  font-size: var(--text-code-sm-size);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-on-surface-variant);
+  border-radius: var(--radius-sm);
+}
+
+.copyButton:hover {
+  color: var(--color-primary-container);
+}
+
+.codeBlock {
+  margin: 0;
+  padding: var(--space-md);
+  background-color: var(--color-surface-container-lowest);
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--color-on-surface-variant);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+@media (max-width: 768px) {
+  .fieldGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .nodeHead {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .nodeMeta {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: var(--space-sm);
+  }
+}

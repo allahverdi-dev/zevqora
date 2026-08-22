@@ -1,0 +1,129 @@
+.panelLink {
+  font-size: var(--text-body-sm-size);
+  color: var(--color-on-surface-variant);
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.panelLink:hover {
+  color: var(--color-primary-container);
+}
+
+.runId {
+  color: var(--color-on-surface);
+}
+
+.runId:hover {
+  color: var(--color-primary-container);
+}
+
+/* Approvals --------------------------------------------------------------- */
+.pendingDot {
+  background-color: var(--color-on-surface);
+}
+
+.approvalList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.approvalItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-block-end: var(--border-subtle);
+}
+
+.approvalItem:last-child {
+  border-block-end: none;
+}
+
+.approvalText {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.approvalTitle {
+  color: var(--color-on-surface);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.approvalMeta {
+  color: var(--color-on-surface-variant);
+}
+
+.approvalActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+/* Incidents --------------------------------------------------------------- */
+.incidentList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.incidentItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-md) var(--space-lg);
+  border-block-end: 1px solid rgba(255, 180, 171, 0.15);
+}
+
+.incidentItem:last-child {
+  border-block-end: none;
+}
+
+.incidentHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.incidentTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.incidentName {
+  color: var(--color-on-surface);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.incidentTime {
+  color: var(--color-on-surface-variant);
+  flex-shrink: 0;
+}
+
+.incidentDetail {
+  color: var(--color-on-surface-variant);
+}
+
+@media (max-width: 430px) {
+  .approvalItem,
+  .incidentItem {
+    padding-inline: var(--space-md);
+  }
+
+  .incidentHead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+}

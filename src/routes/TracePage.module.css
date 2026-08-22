@@ -1,0 +1,140 @@
+/* Run summary bar --------------------------------------------------------- */
+.summaryBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  background-color: rgba(30, 33, 21, 0.8);
+  backdrop-filter: blur(8px);
+  border-block-end: var(--border-subtle);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.summaryLeft,
+.summaryRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.summaryRight {
+  text-align: right;
+}
+
+.summaryField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: 0;
+}
+
+.summaryRight .summaryField {
+  align-items: flex-end;
+}
+
+.summaryLabel {
+  color: var(--color-on-surface-variant);
+}
+
+.summaryValue {
+  color: var(--color-on-surface);
+}
+
+.agentLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-on-surface);
+  border-radius: var(--radius-sm);
+}
+
+.agentLink:hover {
+  color: var(--color-primary-container);
+}
+
+.envValue,
+.statusValue {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-on-surface);
+}
+
+.envDot {
+  background-color: var(--color-primary-container);
+}
+
+.envLabel {
+  color: var(--color-primary-container);
+  letter-spacing: 0.06em;
+}
+
+.timestamp {
+  color: var(--color-on-surface-variant);
+}
+
+/* Trace column ------------------------------------------------------------ */
+.traceColumn {
+  background-color: var(--color-surface);
+}
+
+.traceInner {
+  max-width: 900px;
+  margin-inline: auto;
+  padding: var(--space-lg) var(--space-lg) var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.traceHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.traceTitle {
+  color: var(--color-on-surface);
+}
+
+.traceActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* The inspector is docked on desktop, so its toggle is only needed below. */
+.inspectorToggle {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .inspectorToggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .summaryBar {
+    gap: var(--space-md);
+    padding: var(--space-md);
+  }
+
+  .summaryLeft,
+  .summaryRight {
+    gap: var(--space-md);
+  }
+
+  .summaryRight .summaryField {
+    align-items: flex-start;
+  }
+
+  .traceInner {
+    padding: var(--space-md) var(--space-md) var(--space-xl);
+  }
+}

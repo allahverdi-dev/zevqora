@@ -1,0 +1,81 @@
+.skeleton {
+  display: block;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-container) 0%,
+    var(--color-surface-container-high) 50%,
+    var(--color-surface-container) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-sweep 1.4s var(--ease-standard) infinite;
+}
+
+@keyframes skeleton-sweep {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background: var(--color-surface-container-high);
+  }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  width: 100%;
+}
+
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-xl) var(--space-lg);
+  text-align: center;
+}
+
+.stateIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface-container-high);
+  border: var(--border-subtle);
+  color: var(--color-on-surface-variant);
+  margin-block-end: var(--space-xs);
+}
+
+.errorIcon {
+  color: var(--color-error);
+  border-color: rgba(255, 180, 171, 0.25);
+  background-color: rgba(255, 180, 171, 0.08);
+}
+
+.stateTitle {
+  font-size: var(--text-body-md-size);
+  line-height: var(--text-body-md-line);
+  font-weight: 600;
+  color: var(--color-on-surface);
+}
+
+.stateDescription {
+  color: var(--color-on-surface-variant);
+  max-width: 46ch;
+}
+
+.stateAction {
+  margin-block-start: var(--space-sm);
+}

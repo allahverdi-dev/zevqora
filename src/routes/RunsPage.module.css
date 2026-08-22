@@ -1,0 +1,25 @@
+.liveDot {
+  background-color: var(--color-primary-container);
+}
+
+.body {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  min-width: 0;
+}
+
+.tablePanel {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 1280px) {
+  .body {
+    flex-direction: column;
+    /* Stretch, not flex-start: in a column flex container the cross axis is
+     * the width, and flex-start would size the table panel to its max-content
+     * (the table's nowrap cells), pushing the page into horizontal overflow. */
+    align-items: stretch;
+  }
+}

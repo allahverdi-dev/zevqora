@@ -1,0 +1,315 @@
+.metricRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.metricCard {
+  position: relative;
+  padding: var(--space-md);
+  background-color: var(--color-surface-container);
+  border: var(--border-subtle);
+  border-radius: var(--radius-default);
+  overflow: hidden;
+}
+
+.metricHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.metricValueRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.metricValue {
+  font-family: var(--font-sans);
+  font-size: var(--text-display-lg-size);
+  font-weight: var(--text-display-lg-weight);
+}
+
+.metricDelta {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.metricTrack {
+  margin-top: var(--space-sm);
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-surface-variant);
+  overflow: hidden;
+}
+
+.metricTrackFill {
+  height: 100%;
+}
+
+.commandLayout {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: var(--space-md);
+  align-items: stretch;
+  min-height: 480px;
+}
+
+@media (max-width: 1100px) {
+  .commandLayout {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+}
+
+.panelColumn {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-color: var(--color-surface-container-low);
+  border: var(--border-subtle);
+  overflow: hidden;
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-surface-container-highest);
+  border-bottom: var(--border-subtle);
+}
+
+.severityTabs {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.severityTab {
+  padding: 2px var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: var(--border-subtle);
+  background-color: var(--color-surface-variant);
+  color: var(--color-on-surface);
+  font-size: var(--text-body-sm-size);
+}
+
+.severityTabActive {
+  background-color: var(--color-status-failed-surface);
+  color: var(--color-status-failed);
+  border-color: rgba(255, 180, 171, 0.3);
+}
+
+.incidentList {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 60vh;
+}
+
+.incidentRow {
+  width: 100%;
+  text-align: left;
+  padding: var(--space-md);
+  border-bottom: var(--border-subtle);
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.incidentRow:hover {
+  background-color: var(--color-surface-container);
+}
+
+.incidentRowSelected {
+  background-color: var(--color-surface-container);
+}
+
+.incidentRowHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.incidentRowTags {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.incidentStatusLive {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-error);
+}
+
+.incidentTitle {
+  display: block;
+  color: var(--color-on-background);
+  margin-bottom: var(--space-xs);
+}
+
+.incidentFooter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.incidentOwner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-on-surface-variant);
+}
+
+.ownerAvatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background-color: rgba(191, 244, 64, 0.15);
+  color: var(--color-primary-container);
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.incidentAge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-on-surface-variant);
+}
+
+/* Command center detail ---------------------------------------------------- */
+.commandHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-bottom: var(--border-subtle);
+}
+
+.commandMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  color: var(--color-on-surface-variant);
+  margin-top: var(--space-xs);
+}
+
+.mitigationRow {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-bottom: var(--border-subtle);
+}
+
+.mitigationRow > * {
+  flex: 1;
+}
+
+.timelineHead {
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-on-surface-variant);
+}
+
+.timeline {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.timelineEvent {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.timelineDot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: 5px;
+  border-radius: var(--radius-full);
+}
+
+.timelineDot[data-source='sys'] {
+  background-color: var(--color-error);
+}
+
+.timelineDot[data-source='agent'] {
+  background-color: var(--color-secondary);
+}
+
+.timelineDot[data-source='api'] {
+  background-color: var(--color-status-success);
+}
+
+.timelineDot[data-source='human'] {
+  background-color: var(--color-primary-container);
+}
+
+.timelineHeadRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: 2px;
+}
+
+.timelineTime {
+  color: var(--color-on-background);
+}
+
+.timelineSource {
+  color: var(--color-on-surface-variant);
+}
+
+.timelineMessage {
+  color: var(--color-on-surface-variant);
+}
+
+.timelinePayload {
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-surface-container-lowest);
+  border: var(--border-subtle);
+  border-radius: var(--radius-default);
+  color: var(--color-status-success);
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.mitigationInput {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-top: var(--border-subtle);
+}
+
+.mitigationInput input {
+  flex: 1;
+  background-color: var(--color-surface-container);
+  border: var(--border-subtle);
+  border-radius: var(--radius-default);
+  padding: var(--space-sm);
+  color: var(--color-on-background);
+  font-family: var(--font-mono);
+  font-size: var(--text-code-sm-size);
+}
+
+.appliedMitigations {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}

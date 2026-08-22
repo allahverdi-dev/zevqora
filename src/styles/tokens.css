@@ -1,0 +1,182 @@
+/**
+ * ZEVQORA design tokens.
+ *
+ * Source of truth: design-reference/.../zevqora_engineering_interface/DESIGN.md
+ * (frontmatter token block) cross-checked against the approved screen.png renders.
+ *
+ * The olive/charcoal tonal ramp plus the sparingly-used signal lime is the
+ * approved visual direction. Do not introduce colours outside this file.
+ */
+
+:root {
+  /* ---------------------------------------------------------------------
+   * Surfaces — tonal stepping replaces shadows as the depth mechanism.
+   * Ordered from deepest (navigation) to brightest (raised plate).
+   * ------------------------------------------------------------------ */
+  --color-surface-container-lowest: #0c0f06; /* sidebar / global nav */
+  --color-surface: #11150a; /* app background, workspace canvas */
+  --color-surface-dim: #11150a;
+  --color-surface-container-low: #1a1d12; /* inputs, quiet plates */
+  --color-surface-container: #1e2115; /* standard cards & modules */
+  --color-surface-container-high: #282b1f; /* hover, raised chips */
+  --color-surface-container-highest: #333629; /* borders-as-fills, popovers */
+  --color-surface-bright: #373b2e;
+  --color-surface-variant: #333629;
+
+  /* Content */
+  --color-on-surface: #e2e4d2;
+  --color-on-surface-variant: #c3c9af;
+  --color-on-background: #e2e4d2;
+  --color-background: #11150a;
+  --color-inverse-surface: #e2e4d2;
+  --color-inverse-on-surface: #2e3225;
+
+  /* Outlines — the "Trace Line" motif is built from these. */
+  --color-outline: #8d937b;
+  --color-outline-variant: #434935;
+
+  /* ---------------------------------------------------------------------
+   * Signal lime. Reserved for active states, primary CTAs and
+   * "agent-alive" indicators. Never used for large surfaces.
+   * ------------------------------------------------------------------ */
+  --color-primary: #ffffff; /* high-contrast primary button face */
+  --color-on-primary: #263500;
+  --color-primary-container: #bff440; /* the signal lime */
+  --color-on-primary-container: #516e00;
+  --color-primary-fixed: #bff440;
+  --color-primary-fixed-dim: #a4d71f;
+  --color-on-primary-fixed: #141f00;
+  --color-on-primary-fixed-variant: #384e00;
+  --color-inverse-primary: #4c6700;
+  --color-surface-tint: #a4d71f;
+
+  /* Secondary — cool grey-blue, used for latency lines and model chips. */
+  --color-secondary: #bec7d3;
+  --color-on-secondary: #29313a;
+  --color-secondary-container: #414a53;
+  --color-on-secondary-container: #b0b9c5;
+  --color-secondary-fixed: #dae3ef;
+  --color-secondary-fixed-dim: #bec7d3;
+
+  /* Tertiary — reserved for structured-data accents (JSON keys etc). */
+  --color-tertiary: #ffffff;
+  --color-on-tertiary: #3b2b3b;
+  --color-tertiary-container: #f5dbf1;
+  --color-tertiary-fixed: #f5dbf1;
+  --color-tertiary-fixed-dim: #d8bfd4;
+
+  /* Error / critical */
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+
+  /* ---------------------------------------------------------------------
+   * Semantic status. Desaturated so they never overpower the brand signal.
+   * Every status pairs a colour with an icon + text label so colour is
+   * never the only carrier of meaning.
+   * ------------------------------------------------------------------ */
+  --color-status-success: #6ee7b7;
+  --color-status-success-surface: rgba(110, 231, 183, 0.12);
+  --color-status-running: #bff440;
+  --color-status-running-surface: rgba(191, 244, 64, 0.12);
+  --color-status-warning: #fbbf24;
+  --color-status-warning-surface: rgba(251, 191, 36, 0.12);
+  --color-status-failed: #ffb4ab;
+  --color-status-failed-surface: rgba(255, 180, 171, 0.12);
+  --color-status-neutral: #8d937b;
+  --color-status-neutral-surface: rgba(141, 147, 123, 0.12);
+
+  /* Translucent border ramp — Stitch used /30, /50 opacity outlines. */
+  --border-subtle: 1px solid rgba(67, 73, 53, 0.3);
+  --border-default: 1px solid rgba(67, 73, 53, 0.5);
+  --border-strong: 1px solid var(--color-outline-variant);
+  --border-signal: 1px solid rgba(191, 244, 64, 0.4);
+
+  /* ---------------------------------------------------------------------
+   * Typography
+   * ------------------------------------------------------------------ */
+  --font-sans:
+    'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-mono:
+    'IBM Plex Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
+
+  --text-display-lg-size: 32px;
+  --text-display-lg-line: 40px;
+  --text-display-lg-tracking: -0.02em;
+  --text-display-lg-weight: 700;
+
+  --text-headline-md-size: 20px;
+  --text-headline-md-line: 28px;
+  --text-headline-md-tracking: -0.01em;
+  --text-headline-md-weight: 600;
+
+  --text-body-md-size: 14px;
+  --text-body-md-line: 22px;
+  --text-body-md-weight: 400;
+
+  --text-body-sm-size: 13px;
+  --text-body-sm-line: 20px;
+  --text-body-sm-weight: 400;
+
+  --text-code-md-size: 13px;
+  --text-code-md-line: 20px;
+  --text-code-md-weight: 450;
+
+  --text-code-sm-size: 11px;
+  --text-code-sm-line: 16px;
+  --text-code-sm-weight: 400;
+
+  --text-label-caps-size: 11px;
+  --text-label-caps-line: 16px;
+  --text-label-caps-tracking: 0.05em;
+  --text-label-caps-weight: 700;
+
+  /* ---------------------------------------------------------------------
+   * Spacing — 4px baseline grid governs all rhythm.
+   * ------------------------------------------------------------------ */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xs: 2px;
+  --space-2xl: 64px;
+  --space-gutter: 16px;
+  --space-margin-safe: 24px;
+
+  /* ---------------------------------------------------------------------
+   * Shape — "Soft-Technical". Restrained radii, never rounded-everything.
+   * ------------------------------------------------------------------ */
+  --radius-sm: 2px;
+  --radius-default: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* ---------------------------------------------------------------------
+   * Layout — Fixed-Fluid Hybrid: fixed nav + inspector, fluid workspace.
+   * ------------------------------------------------------------------ */
+  --sidebar-width: 264px;
+  --topbar-height: 64px;
+  --inspector-width: 384px;
+  --content-max-width: 1600px;
+
+  /* Depth — popovers are the only elements permitted a shadow. */
+  --shadow-popover: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-signal: 0 0 12px rgba(191, 244, 64, 0.15);
+
+  /* Motion */
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 400ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  --z-sidebar: 50;
+  --z-topbar: 40;
+  --z-overlay: 100;
+  --z-toast: 200;
+}

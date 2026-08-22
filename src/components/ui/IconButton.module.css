@@ -1,0 +1,40 @@
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--color-on-surface-variant);
+  border: 1px solid transparent;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+.glyph {
+  display: inline-flex;
+}
+
+.sm {
+  width: 28px;
+  height: 28px;
+}
+
+.md {
+  width: 34px;
+  height: 34px;
+}
+
+.default:hover:not(:disabled) {
+  background-color: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+}
+
+.danger:hover:not(:disabled) {
+  background-color: rgba(255, 180, 171, 0.12);
+  color: var(--color-error);
+}
+
+.iconButton:disabled {
+  opacity: 0.4;
+}

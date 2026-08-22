@@ -1,0 +1,190 @@
+/* Filter bar -------------------------------------------------------------- */
+.filterBar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background-color: var(--color-surface-container);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.filterRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.searchField {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 320px;
+  min-width: 0;
+  max-width: 420px;
+}
+
+.searchIcon {
+  position: absolute;
+  inset-inline-start: var(--space-md);
+  color: var(--color-on-surface-variant);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding-inline-start: 42px;
+  background-color: var(--color-surface-container-low);
+  border: var(--border-default);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body-sm-size);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Active filter chips ----------------------------------------------------- */
+.chipRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.chipLabel {
+  color: var(--color-on-surface-variant);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--color-surface-container-high);
+  border: var(--border-default);
+  border-radius: var(--radius-default);
+  color: var(--color-on-surface);
+  font-size: var(--text-body-sm-size);
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.chip:hover {
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.clearAll {
+  font-size: var(--text-body-sm-size);
+  color: var(--color-on-surface-variant);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.clearAll:hover {
+  color: var(--color-on-surface);
+}
+
+/* Table ------------------------------------------------------------------- */
+.runIdLink {
+  color: var(--color-on-surface);
+  font-weight: 500;
+}
+
+.runIdLink:hover {
+  color: var(--color-primary-container);
+}
+
+.agentCell {
+  color: var(--color-on-surface);
+}
+
+/* Summary card ------------------------------------------------------------ */
+.summaryCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background-color: var(--color-surface-container-high);
+  border: var(--border-default);
+  border-radius: var(--radius-lg);
+  align-self: flex-start;
+  width: 320px;
+  flex-shrink: 0;
+}
+
+.summaryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.summaryTitle {
+  color: var(--color-on-surface);
+}
+
+.summaryIcon {
+  color: var(--color-on-surface-variant);
+}
+
+.summaryList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin: 0;
+}
+
+.summaryRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.summaryLabel {
+  color: var(--color-on-surface-variant);
+  margin: 0;
+}
+
+.summaryValue {
+  color: var(--color-on-surface);
+  margin: 0;
+}
+
+.summaryValueGood {
+  color: var(--color-status-success);
+  margin: 0;
+}
+
+.summaryError {
+  color: var(--color-on-surface-variant);
+}
+
+@media (max-width: 1280px) {
+  .summaryCard {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .filterBar {
+    padding: var(--space-md);
+  }
+
+  .searchField {
+    max-width: none;
+    flex-basis: 100%;
+  }
+
+  .controls {
+    justify-content: flex-start;
+  }
+}

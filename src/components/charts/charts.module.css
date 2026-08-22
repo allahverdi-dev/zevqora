@@ -1,0 +1,200 @@
+.figure {
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.svg {
+  width: 100%;
+  display: block;
+}
+
+.gridLine {
+  stroke: var(--color-on-surface-variant);
+  stroke-opacity: 0.1;
+  stroke-width: 1;
+}
+
+/* Execution chart --------------------------------------------------------- */
+.bar {
+  fill: var(--color-primary-container);
+  fill-opacity: 0.28;
+}
+
+.bars:hover .bar {
+  fill-opacity: 0.38;
+}
+
+.latencyLine {
+  stroke: var(--color-secondary);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.latencyDot {
+  fill: var(--color-secondary);
+}
+
+/* Area chart -------------------------------------------------------------- */
+.areaLine {
+  stroke: var(--color-primary-container);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-opacity: 0.8;
+}
+
+/* Sparkline --------------------------------------------------------------- */
+.sparkLine {
+  stroke: var(--color-on-surface);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-opacity: 0.75;
+}
+
+/* Utilisation ------------------------------------------------------------- */
+.utilizationBar {
+  fill: var(--color-primary-container);
+  fill-opacity: 0.22;
+}
+
+.utilizationBarPeak {
+  fill: var(--color-on-surface);
+  fill-opacity: 0.92;
+}
+
+/* Comparison -------------------------------------------------------------- */
+.comparePrimary {
+  stroke: var(--color-on-surface);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.compareSecondary {
+  stroke: var(--color-on-surface-variant);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+  stroke-opacity: 0.6;
+  stroke-linejoin: round;
+}
+
+/* Legend ------------------------------------------------------------------ */
+.legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  font-family: var(--font-sans);
+  font-size: var(--text-code-sm-size);
+  line-height: var(--text-code-sm-line);
+  color: var(--color-on-surface-variant);
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.legendSwatchBar {
+  width: 10px;
+  height: 10px;
+  border-radius: 1px;
+  background-color: var(--color-primary-container);
+  opacity: 0.4;
+}
+
+.legendSwatchLine,
+.legendSwatchSolid,
+.legendSwatchDashed {
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+}
+
+.legendSwatchLine {
+  background-color: var(--color-secondary);
+}
+
+.legendSwatchSolid {
+  background-color: var(--color-on-surface);
+}
+
+.legendSwatchDashed {
+  background-image: linear-gradient(
+    to right,
+    var(--color-on-surface-variant) 0 6px,
+    transparent 6px 11px
+  );
+  opacity: 0.6;
+}
+
+.legendSwatch {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.axisLabel {
+  fill: var(--color-on-surface-variant);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  text-anchor: middle;
+}
+
+/* Donut chart ---------------------------------------------------------------- */
+.donutTrack {
+  fill: none;
+  stroke: var(--color-surface-container-highest);
+}
+
+.donutSegment {
+  fill: none;
+  stroke-linecap: butt;
+  transition: stroke-dasharray var(--duration-slow) var(--ease-standard);
+}
+
+.donutCenterValue {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 600;
+  fill: var(--color-on-background);
+  text-anchor: middle;
+}
+
+.donutCenterLabel {
+  font-family: var(--font-sans);
+  font-size: 6px;
+  fill: var(--color-on-surface-variant);
+  text-anchor: middle;
+}
+
+.legendStack {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  width: 100%;
+}
+
+/* Percentile chart ---------------------------------------------------------
+ * Three independent bars per stage — never stacked, since P50/P90/P99 are
+ * not additive. Each keeps a solid, distinct fill so none reads as "behind"
+ * another. */
+.percentileBarP50 {
+  fill: var(--color-secondary-container);
+}
+
+.percentileBarP90 {
+  fill: var(--color-primary-container);
+}
+
+.percentileBarP99 {
+  fill: var(--color-error);
+}

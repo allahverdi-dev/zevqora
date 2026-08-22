@@ -1,0 +1,89 @@
+/* Chip form — the table treatment. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 2px var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-code-sm-size);
+  line-height: var(--text-code-sm-line);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.chipIcon {
+  display: inline-flex;
+}
+
+/* Dot form — the card treatment. */
+.dotWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+.dotLabel {
+  font-family: var(--font-sans);
+  font-size: var(--text-label-caps-size);
+  line-height: var(--text-label-caps-line);
+  letter-spacing: var(--text-label-caps-tracking);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.statusIcon {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Tones ------------------------------------------------------------------- */
+.success {
+  color: var(--color-status-success);
+}
+.chip.success {
+  background-color: var(--color-status-success-surface);
+  border-color: rgba(110, 231, 183, 0.25);
+}
+
+.running {
+  color: var(--color-status-running);
+}
+.chip.running {
+  background-color: var(--color-status-running-surface);
+  border-color: rgba(191, 244, 64, 0.25);
+}
+
+.failed {
+  color: var(--color-status-failed);
+}
+.chip.failed {
+  background-color: var(--color-status-failed-surface);
+  border-color: rgba(255, 180, 171, 0.25);
+}
+
+.warning {
+  color: var(--color-status-warning);
+}
+.chip.warning {
+  background-color: var(--color-status-warning-surface);
+  border-color: rgba(251, 191, 36, 0.25);
+}
+
+.neutral {
+  color: var(--color-on-surface-variant);
+}
+.chip.neutral {
+  background-color: var(--color-status-neutral-surface);
+  border-color: rgba(141, 147, 123, 0.25);
+}

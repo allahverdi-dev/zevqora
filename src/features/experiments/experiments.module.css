@@ -1,0 +1,245 @@
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--color-surface-container-low);
+  border: var(--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--duration-base) var(--ease-standard),
+    transform var(--duration-base) var(--ease-standard);
+}
+
+.card:hover {
+  border-color: var(--color-outline);
+}
+
+.cardSelected {
+  border-color: var(--color-primary-container);
+  box-shadow: var(--shadow-signal);
+}
+
+.cardSelected::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--color-primary-container),
+    transparent
+  );
+}
+
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.cardId {
+  color: var(--color-on-surface-variant);
+  font-size: 10px;
+}
+
+.cardName {
+  margin: 0;
+  color: var(--color-on-background);
+}
+
+.cardFooter {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: var(--space-sm);
+}
+
+.cardFigure {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cardFigureEnd {
+  align-items: flex-end;
+}
+
+.deltaPositive {
+  color: var(--color-status-running);
+}
+
+.deltaNegative {
+  color: var(--color-error);
+}
+
+/* Metric comparison bars ---------------------------------------------------
+ * Each metric (accuracy / latency / cost) is normalized independently, never
+ * against a shared numeric axis — see src/lib/chart-math.ts. */
+.comparisonGroups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.comparisonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.comparisonMetricLabel {
+  color: var(--color-on-surface-variant);
+  letter-spacing: 0.08em;
+}
+
+.comparisonRow {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) 64px;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.comparisonVariantLabel {
+  color: var(--color-on-surface-variant);
+}
+
+.comparisonTrack {
+  position: relative;
+  height: 10px;
+  background-color: var(--color-surface-container-high);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.comparisonFill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-sm);
+  transition: width var(--duration-slow) var(--ease-standard);
+}
+
+.comparisonFillA {
+  background-color: var(--color-primary-container);
+}
+
+.comparisonFillB {
+  background-color: var(--color-secondary-container);
+}
+
+.comparisonValue {
+  text-align: right;
+  color: var(--color-on-background);
+}
+
+@media (max-width: 480px) {
+  .comparisonRow {
+    grid-template-columns: 56px minmax(0, 1fr) 56px;
+  }
+}
+
+.compareLayout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-md);
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .compareLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.compareHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.allocationTable {
+  width: 100%;
+  margin-top: var(--space-md);
+  border-collapse: collapse;
+}
+
+.allocationTable td {
+  padding: var(--space-xs) 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-code-sm-size);
+  color: var(--color-on-surface-variant);
+  border-top: var(--border-subtle);
+}
+
+.allocationTable td:last-child {
+  text-align: right;
+  color: var(--color-on-background);
+}
+
+.dialogGrid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.dialogRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.field label {
+  font-family: var(--font-sans);
+  font-size: var(--text-label-caps-size);
+  font-weight: var(--text-label-caps-weight);
+  letter-spacing: var(--text-label-caps-tracking);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.field input,
+.field select {
+  background: var(--color-surface-container-low);
+  border: var(--border-default);
+  border-radius: var(--radius-default);
+  padding: var(--space-sm);
+  color: var(--color-on-background);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm-size);
+}
+
+.field input:focus-visible,
+.field select:focus-visible {
+  outline: 2px solid var(--color-primary-container);
+  outline-offset: 1px;
+  border-color: var(--color-primary-container);
+}
+
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.sliderRow input[type='range'] {
+  flex: 1;
+  accent-color: var(--color-primary-container);
+}

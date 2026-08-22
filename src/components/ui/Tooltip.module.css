@@ -1,0 +1,41 @@
+.trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-sm);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--color-primary-container);
+  outline-offset: 2px;
+}
+
+.bubble {
+  position: absolute;
+  bottom: calc(100% + var(--space-xs));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-overlay);
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--color-surface-container-highest);
+  border: var(--border-strong);
+  border-radius: var(--radius-default);
+  box-shadow: var(--shadow-popover);
+  color: var(--color-on-surface);
+  font-family: var(--font-sans);
+  font-size: var(--text-code-sm-size);
+  line-height: var(--text-code-sm-line);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--duration-fast) var(--ease-standard),
+    visibility var(--duration-fast) var(--ease-standard);
+}
+
+.trigger:hover .bubble,
+.trigger:focus-visible .bubble {
+  opacity: 1;
+  visibility: visible;
+}
