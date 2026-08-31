@@ -41,6 +41,12 @@ jobs:
       - name: Test
         run: npm run test:run
 
+      - name: Install test browsers
+        run: npx playwright install --with-deps chromium webkit
+
+      - name: Test native scrolling
+        run: npm run test:e2e
+
       - name: Build
         run: npm run build
         env:

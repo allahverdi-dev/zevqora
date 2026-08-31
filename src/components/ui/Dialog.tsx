@@ -9,6 +9,7 @@ import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 
 import { cx } from '@/lib/cx'
+import { lockDocumentScroll } from '@/lib/scroll-lock'
 
 import { IconButton } from './IconButton'
 import styles from './Dialog.module.css'
@@ -92,11 +93,7 @@ export function Dialog({
   // Lock background scroll while open.
   useEffect(() => {
     if (!open) return
-    const previous = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = previous
-    }
+    return lockDocumentScroll()
   }, [open])
 
   const handleKeyDown = useCallback(

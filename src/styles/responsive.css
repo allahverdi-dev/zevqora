@@ -169,6 +169,16 @@
 /* Nothing may push the document sideways at any width. */
 html,
 body {
-  overflow-x: hidden;
   max-width: 100%;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  /* `hidden` also computes overflow-y to auto, creating a body scroll
+   * container with no vertical range. Its overscroll-behavior then blocks
+   * wheel/touch chaining to the document. Clip without creating a scroller. */
+  overflow-x: clip;
 }

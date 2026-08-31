@@ -23,10 +23,11 @@ export function AppShell() {
   const location = useLocation()
   const { toast } = useToast()
 
-  // Close the mobile drawer whenever the route changes.
+  // Dismiss transient surfaces on every navigation, including browser history.
   useEffect(() => {
     setNavOpen(false)
-  }, [location.pathname])
+    setSearchOpen(false)
+  }, [location.key])
 
   // ⌘K / Ctrl+K opens the palette from anywhere.
   useEffect(() => {

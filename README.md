@@ -890,7 +890,20 @@ Run Vitest in watch mode.
 npm run test:run
 ```
 
-Run the complete test suite once.
+Run the Vitest suite once, including dialog scroll-lock lifecycle tests.
+
+```bash
+npx playwright install chromium webkit
+npm run test:e2e
+```
+
+Run native scrolling regressions across desktop, laptop, tablet and phone widths.
+The suite starts Vite automatically and checks wheel input, keyboard scrolling,
+scrollbar dragging, horizontal tables, dialogs and drawer navigation. Chromium
+also checks one-finger swipes; WebKit is tested at phone width in desktop mode
+because Playwright cannot dispatch wheel or touch-drag in mobile WebKit.
+Physical Android/iOS momentum and touchpad hardware still require device QA.
+These browser tests also run before the GitHub Pages build.
 
 ```bash
 npm run build
