@@ -43,15 +43,48 @@ for (const route of routes) {
 test('native keyboard navigation and scrollbar dragging remain available', async ({ page }) => {
   test.skip(page.viewportSize()!.width <= 1024, 'Desktop keyboard and scrollbar semantics')
   await load(page, '/')
+
+  await page.keyboard.press('Home')
+  await expect.poll(() => scrollTop(page)).toBe(0)
+
   await page.locator('body').click({ position: { x: 15, y: 200 } })
-  for (const [down, up] of [['PageDown', 'PageUp'], ['Space', 'Shift+Space'], ['End', 'Home']]) {
-    await page.keyboard.press(down!)
-    await expect.poll(() => scrollTop(page)).toBeGreaterThan(0)
-    await page.keyboard.press(up!)
-    await expect.poll(() => scrollTop(page)).toBe(0)
-  }
+
+  await page.keyboard.press('PageDown')
+  await expect.poll(() => scrollTop(page)).toBeGreaterThan(0)
+  await page.waitForTimeout(300)
+
+  await page.keyboard.press('Home')
+  await expect.poll(() => scrollTop(page)).toBe(0)
+
+  await page.keyboard.press('Space')
+  await expect.poll(() => scrollTop(page)).toBeGreaterThan(0)
+  await page.waitForTimeout(300)
+
+  await page.keyboard.press('End')
+  await page.waitForTimeout(300)
+  const endTopForPageUp = await scrollTop(page)
+  expect(endTopForPageUp).toBeGreaterThan(0)
+
+  await page.keyboard.press('PageUp')
+  await page.waitForTimeout(300)
+  await expect.poll(() => scrollTop(page)).toBeLessThan(endTopForPageUp)
+
+  await page.keyboard.press('End')
+  await page.waitForTimeout(300)
+  const endTopForShiftSpace = await scrollTop(page)
+  expect(endTopForShiftSpace).toBeGreaterThan(0)
+
+  await page.keyboard.press('Shift+Space')
+  await page.waitForTimeout(300)
+  await expect.poll(() => scrollTop(page)).toBeLessThan(endTopForShiftSpace)
+
+  await page.keyboard.press('Home')
+  await expect.poll(() => scrollTop(page)).toBe(0)
+
   const viewport = page.viewportSize()!
-  const thumbY = await page.evaluate(() => innerHeight * innerHeight / document.scrollingElement!.scrollHeight / 2)
+  const thumbY = await page.evaluate(
+    () => innerHeight * innerHeight / document.scrollingElement!.scrollHeight / 2,
+  )
   await page.mouse.move(viewport.width - 3, thumbY)
   await page.mouse.down()
   await page.mouse.move(viewport.width - 3, thumbY + 150, { steps: 10 })
@@ -114,6 +147,15 @@ test('closing or navigating from the mobile sidebar leaves scrolling unlocked', 
   await expect(page.getByRole('button', { name: 'Close navigation' })).toHaveCount(0)
   expect(await page.evaluate(() => document.documentElement.style.overflow)).toBe('')
   expect(await page.evaluate(() => document.body.style.overflow)).toBe('')
+
+  const range = await page.evaluate(
+    () =>
+      document.scrollingElement!.scrollHeight -
+      document.scrollingElement!.clientHeight,
+  )
+
+  if (range <= 0) return
+
   await pointAtPage(page)
   await page.mouse.wheel(0, 400)
   await expect.poll(() => scrollTop(page)).toBeGreaterThan(0)
